@@ -24,15 +24,24 @@ function App() {
   const handleInput = (input: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(input.target.value);
   };
-  useEffect(() => {
-    fetchWord("");
-  }, []);
-  if (loading) return <div>Loading...</div>;
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    fetchWord(inputValue);
+    setInputValue("");
+  };
 
   return (
     <div style={{ padding: "20px", fontFamily: "Arial" }}>
-      <input type="text" placeholder="Enter a word" onChange={handleInput} />
-      <button onClick={() => fetchWord(inputValue)}>Search</button>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Enter a word"
+          onChange={handleInput}
+          value={inputValue}
+        />
+        <button type="submit">Search</button>
+      </form>
       {wordData ? (
         <div>
           {wordData.phonetics?.[0]?.text && (
@@ -40,17 +49,16 @@ function App() {
           )}
           <h3>Meanings:</h3>
           <ul>
-            {wordData &&
-              wordData.meanings?.map((meaning: any, index: number) => (
-                <li key={index}>
-                  <strong>{meaning.partOfSpeech}</strong>
-                  <ul>
-                    {meaning.definitions?.map((def: any, i: number) => (
-                      <li key={i}>{def.definition}</li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
+            {wordData.meanings?.map((meaning: any, index: number) => (
+              <li key={index}>
+                <strong>{meaning.partOfSpeech}</strong>
+                <ul>
+                  {meaning.definitions?.map((def: any, i: number) => (
+                    <li key={i}>{def.definition}</li>
+                  ))}
+                </ul>
+              </li>
+            ))}
           </ul>
         </div>
       ) : (
