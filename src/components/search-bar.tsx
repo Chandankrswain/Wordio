@@ -43,6 +43,7 @@ const SearchBar = () => {
       </form>
       {!loading && wordData ? (
         <div>
+          <p className="text-6xl font-bold">{wordData.word}</p>
           {wordData.phonetics?.[0]?.text && (
             <p>Phonetic: {wordData.phonetics[0].text}</p>
           )}
@@ -61,7 +62,7 @@ const SearchBar = () => {
           </ul>
         </div>
       ) : (
-        <p>No data found.</p>
+        ""
       )}
     </div>
   );
