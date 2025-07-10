@@ -1,5 +1,4 @@
-import SearchBar from "./components/search-bar";
-
+import HomePage from "./pages/HomePage";
 function App() {
   return <HomePage />;
 }
