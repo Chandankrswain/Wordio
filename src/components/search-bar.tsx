@@ -35,7 +35,7 @@ const SearchBar = () => {
     <div className="p-2">
       <form onSubmit={handleSubmit} className="flex items-center pb-2">
         <input
-          className=" p-3 border rounded-3xl font-sans outline-none "
+          className=" p-3 pl-4 border rounded-3xl font-sans outline-none placeholder:text-black"
           type="text"
           placeholder="Enter a word or phrase"
           onChange={handleInput}
