@@ -15,7 +15,7 @@ const HomePage = () => {
     >
       <img src={logo} alt="Wordio Logo" className="w-44 h-10 ml-2 mt-6" />
       <div className="flex flex-col p-2">
-        <p className="text-[100px] font-bold leading-22 font-display">Search</p>
+        <p className="text-[98px] font-bold leading-22 font-display">Search</p>
         <p className="text-[85px] font-bold leading-22 font-display">Word.</p>
         <SearchBar />
       </div>
