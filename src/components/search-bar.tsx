@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { WordData } from "../utils/api";
+import { BsArrowRight } from "react-icons/bs";
 
 const SearchBar = () => {
   const [wordData, setWordData] = useState({} as any);
@@ -31,17 +32,17 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="p-10 ">
-      <form onSubmit={handleSubmit}>
+    <div className="p-2">
+      <form onSubmit={handleSubmit} className="flex items-center pb-2">
         <input
-          className=" p-2 border rounded-md"
+          className=" p-3 border rounded-3xl font-sans outline-none "
           type="text"
-          placeholder="Enter a word"
+          placeholder="Enter a word or phrase"
           onChange={handleInput}
           value={inputValue}
         />
         <button className="p-2" type="submit">
-          Search
+          <BsArrowRight className="w-13 h-13 border p-3 rounded-full" />
         </button>
       </form>
       {!loading && wordData ? (
