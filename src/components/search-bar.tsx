@@ -31,15 +31,18 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="">
+    <div className="p-10 ">
       <form onSubmit={handleSubmit}>
         <input
+          className=" p-2 border rounded-md"
           type="text"
           placeholder="Enter a word"
           onChange={handleInput}
           value={inputValue}
         />
-        <button type="submit">Search</button>
+        <button className="p-2" type="submit">
+          Search
+        </button>
       </form>
       {!loading && wordData ? (
         <div>
