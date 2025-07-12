@@ -45,7 +45,7 @@ const SearchBar = () => {
           <BsArrowRight className="w-13 h-13 border p-3 rounded-full" />
         </button>
       </form>
-      {!loading && wordData ? (
+      {/* {!loading && wordData ? (
         <div>
           <p className="text-6xl font-bold">{wordData.word}</p>
           {wordData.phonetics?.[0]?.text && (
@@ -67,7 +67,7 @@ const SearchBar = () => {
         </div>
       ) : (
         ""
-      )}
+      )} */}
     </div>
   );
 };
