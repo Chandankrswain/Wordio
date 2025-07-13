@@ -1,25 +1,12 @@
 import { useState } from "react";
-import { WordData } from "../utils/api";
+
 import { BsArrowRight } from "react-icons/bs";
 
 const SearchBar = () => {
-  const [wordData, setWordData] = useState({} as any);
-  const [loading, setLoading] = useState(true);
+  const [userWord, setUserWord] = useState("");
   const [inputValue, setInputValue] = useState("");
 
-  const data = new WordData();
-  async function fetchWord(word: string) {
-    try {
-      setLoading(true);
-      const result = await data.fetchWordData(word);
-      setWordData(result[0]);
-      console.log("Word data fetched:", result[0]);
-    } catch (error) {
-      console.error("Failed to fetch word data:", error);
-    } finally {
-      setLoading(false);
-    }
-  }
+
 
   const handleInput = (input: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(input.target.value);
@@ -27,7 +14,7 @@ const SearchBar = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetchWord(inputValue);
+    setUserWord(inputValue);
     setInputValue("");
   };
 
