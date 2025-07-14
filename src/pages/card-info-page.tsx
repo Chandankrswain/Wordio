@@ -50,7 +50,7 @@ const InfoCard = () => {
   };
 
   return (
-    <div className="flex flex-col md:w-[40%] mx-auto h-screen p-7 bg-[#6EE679]">
+    <div className="flex flex-col md:w-[40%] mx-auto h-screen overflow-y-auto p-7 bg-[#6EE679]">
       <img
         src={logo}
         alt="Wordio Logo"
