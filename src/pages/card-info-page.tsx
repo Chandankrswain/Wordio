@@ -1,35 +1,63 @@
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { WordData } from "../utils/api";
+import { useParams } from "react-router";
 
-const pageVariants = {
-  initial: { x: -1000, opacity: 0 },
-  animate: { x: 0, opacity: 1 },
-  exit: { x: 1000, opacity: 0 },
-};
+interface WordInfo {
+  word: string;
+  definition: string;
+  meanings: {
+    partOfSpeech: string;
+    definitions: {
+      definition: string;
+    }[];
+  }[];
+  phonetics: {
+    text: string;
+  }[];
+}
 
-const CardInfoPage = () => {
-  const handleClick = () => {
-    window.location.href = "/";
-  };
+const InfoCard = () => {
+  const data = new WordData();
+  const [isLoading, setLoading] = useState(false);
+  const [wordInfo, setWordInfo] = useState<WordInfo | null>(null);
+  const params = useParams();
+
+  async function fetchWord(word: string) {
+    try {
+      setLoading(true);
+      const result = await data.fetchWordData(word);
+      setWordInfo(result[0]);
+      console.log("Word data fetched:", result[0]);
+    } catch (error) {
+      console.error("Failed to fetch word data:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    if (params.word) {
+      fetchWord(params.word);
+    }
+  }, [params.word]);
 
   return (
-    <motion.div
-      className="flex flex-col items-center justify-center h-screen bg-white"
-      variants={pageVariants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      transition={{ duration: 0.8, ease: "easeInOut" }}
-    >
-      <h1 className="text-4xl font-bold">Word Info Page</h1>
-      <p className="text-lg">This is the card info content.</p>
-      <button
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded "
-        onClick={handleClick}
-      >
-        Go Back
-      </button>
-    </motion.div>
+    <div className="">
+      {isLoading && <p>Loading...</p>}
+      <ul>
+        {wordInfo?.meanings?.map((meaning: any, index: number) => (
+          <li key={index}>
+            <strong>{meaning.partOfSpeech}</strong>
+            <ul>
+              {meaning.definitions?.map((def: any, i: number) => (
+                <li key={i}>{def.definition}</li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
-export default CardInfoPage;
+export default InfoCard;
