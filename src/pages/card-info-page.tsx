@@ -1,19 +1,14 @@
 import { useEffect, useState } from "react";
 import { WordData } from "../utils/api";
 import { useParams } from "react-router";
+import { PiSpeakerSimpleHighLight } from "react-icons/pi";
+import logo from "../assets/logo.png";
+import InnerCard from "../components/inner-card";
 
 interface WordInfo {
   word: string;
-  definition: string;
-  meanings: {
-    partOfSpeech: string;
-    definitions: {
-      definition: string;
-    }[];
-  }[];
-  phonetics: {
-    text: string;
-  }[];
+  phonetic: string;
+  phonetics: Record<string, any>[];
 }
 
 const InfoCard = () => {
@@ -41,9 +36,47 @@ const InfoCard = () => {
     }
   }, [params.word]);
 
+  const handleClick = () => {
+    window.location.href = "/";
+  };
+
+  const handlePronunciation = () => {
+    if (wordInfo && wordInfo.phonetics.length > 0) {
+      const audio = new Audio(wordInfo.phonetics[0].audio);
+      audio.play().catch((error) => {
+        console.error("Error playing audio:", error);
+      });
+    }
+  };
+
   return (
-    <div className="flex flex-col md:w-[40%] mx-auto justify-between h-screen p-2 bg-[#6EE679]">
+    <div className="flex flex-col md:w-[40%] mx-auto h-screen p-7 bg-[#6EE679]">
+      <img
+        src={logo}
+        alt="Wordio Logo"
+        className="w-44 h-10 ml-2 mt-6"
+        onClick={handleClick}
+      />
       {isLoading && <p>Loading...</p>}
+      {wordInfo ? (
+        <div className="flex flex-col mt-20 p-4 ">
+          <p className="text-xs ml-1 leading-0 font-light font-[#a7abaf]">
+            VERB
+          </p>
+          <p className="font-bold font-display text-5xl mb-2">
+            {wordInfo.word}
+          </p>
+          <div className="flex items-center">
+            <button onClick={handlePronunciation}>
+              <PiSpeakerSimpleHighLight className="w-7 h-7 mr-3" />
+            </button>
+            <p className="text-2xl">{wordInfo.phonetic}</p>
+          </div>
+          <InnerCard wordMeaning={wordInfo} />
+        </div>
+      ) : (
+        "404 error"
+      )}
     </div>
   );
 };
