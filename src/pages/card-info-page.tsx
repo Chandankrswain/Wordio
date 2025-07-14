@@ -42,20 +42,8 @@ const InfoCard = () => {
   }, [params.word]);
 
   return (
-    <div className="">
+    <div className="flex flex-col md:w-[40%] mx-auto justify-between h-screen p-2 bg-[#6EE679]">
       {isLoading && <p>Loading...</p>}
-      <ul>
-        {wordInfo?.meanings?.map((meaning: any, index: number) => (
-          <li key={index}>
-            <strong>{meaning.partOfSpeech}</strong>
-            <ul>
-              {meaning.definitions?.map((def: any, i: number) => (
-                <li key={i}>{def.definition}</li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };

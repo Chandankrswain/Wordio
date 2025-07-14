@@ -9,7 +9,7 @@ export class WordData {
 
   async fetchWordData(word: string) {
     const response = await this.client.get(
-      WORD_SEARCH_API.replace(":WORD", word)
+      WORD_SEARCH_API.replace(":WORD", word.toLowerCase())
     );
     return response.data;
   }
