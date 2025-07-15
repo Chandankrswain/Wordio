@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./button";
 
 interface WordInfo {
@@ -8,6 +8,7 @@ interface WordInfo {
   meanings?: Array<{
     partOfSpeech: string | null;
     definitions: Array<{ definition: string }>;
+    examples?: string[];
   }>;
 }
 
@@ -18,6 +19,15 @@ const InnerCard = ({ wordMeaning }: InfoCardProps) => {
   const [selectedPartOfSpeech, setSelectedPartOfSpeech] = useState<
     string | null
   >(null);
+
+  useEffect(() => {
+    if (wordMeaning?.meanings && wordMeaning.meanings.length > 0) {
+      const noun = wordMeaning.meanings.find((m) => m.partOfSpeech === "noun");
+      setSelectedPartOfSpeech(
+        noun?.partOfSpeech ?? wordMeaning.meanings[0].partOfSpeech ?? null
+      );
+    }
+  }, [wordMeaning]);
 
   const arrayOfPartsOfSpeech = [
     ...new Set(
@@ -31,17 +41,17 @@ const InnerCard = ({ wordMeaning }: InfoCardProps) => {
 
   return (
     <div>
-      <div className="flex flex-wrap ">
+      <div className="flex flex-wrap mt-2">
         {arrayOfPartsOfSpeech &&
           arrayOfPartsOfSpeech.map((partOfSpeech, index) => (
             <Button
               key={index}
               label={partOfSpeech ?? ""}
               onClick={() => handleClick(partOfSpeech ?? "")}
-              className={`${
+              className={`border p-1 pl-4 pr-4 rounded-2xl m-2 ml-0 ${
                 selectedPartOfSpeech === partOfSpeech
-                  ? "bg-black text-white"
-                  : "bg-white text-black"
+                  ? "border-black text-black"
+                  : "text-gray-500 border-gray-500"
               }`}
             />
           ))}
@@ -50,10 +60,17 @@ const InnerCard = ({ wordMeaning }: InfoCardProps) => {
         (wordMeaning?.meanings ?? [])
           .filter((meaning) => selectedPartOfSpeech === meaning.partOfSpeech)
           .map((meaning: any, index: number) => (
-            <li key={index}>
-              <ul>
+            <li key={index} className="list-none mt-4">
+              <ul className="list-disc ml-6">
                 {meaning.definitions?.map((def: any, i: number) => (
-                  <li key={i}>{def.definition}</li>
+                  <li className="leading-7 text-lg mb-3" key={i}>
+                    <div>{def.definition}</div>
+                    {def.example && (
+                      <p className="text-sm text-gray-600 mt-1 ml-4">
+                        Example: <em>“{def.example}”</em>
+                      </p>
+                    )}
+                  </li>
                 ))}
               </ul>
             </li>
