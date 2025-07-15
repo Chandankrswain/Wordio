@@ -41,11 +41,15 @@ const InfoCard = () => {
   };
 
   const handlePronunciation = () => {
-    if (wordInfo && wordInfo.phonetics.length > 0) {
-      const audio = new Audio(wordInfo.phonetics[0].audio);
+    const audioUrl = wordInfo?.phonetics?.[0]?.audio;
+
+    if (audioUrl) {
+      const audio = new Audio(audioUrl);
       audio.play().catch((error) => {
         console.error("Error playing audio:", error);
       });
+    } else {
+      console.warn("No audio available for this word");
     }
   };
 
@@ -70,7 +74,7 @@ const InfoCard = () => {
             <button onClick={handlePronunciation}>
               <PiSpeakerSimpleHighLight className="w-7 h-7 mr-3" />
             </button>
-            <p className="text-2xl">{wordInfo.phonetic}</p>
+            <p className="text-2xl mb-2">{wordInfo.phonetic}</p>
           </div>
           <InnerCard wordMeaning={wordInfo} />
         </div>
