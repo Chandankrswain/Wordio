@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { BsArrowRight } from "react-icons/bs";
 import { useNavigate } from "react-router";
 
@@ -15,6 +14,7 @@ const SearchBar = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setUserWord(inputValue);
+    console.log("User word:", userWord);
     setInputValue("");
   };
 
@@ -37,29 +37,6 @@ const SearchBar = () => {
           <BsArrowRight className="w-13 h-13 border p-3 rounded-full" />
         </button>
       </form>
-      {/* {!loading && wordData ? (
-        <div>
-          <p className="text-6xl font-bold">{wordData.word}</p>
-          {wordData.phonetics?.[0]?.text && (
-            <p>Phonetic: {wordData.phonetics[0].text}</p>
-          )}
-          <h3>Meanings:</h3>
-          <ul>
-            {wordData.meanings?.map((meaning: any, index: number) => (
-              <li key={index}>
-                <strong>{meaning.partOfSpeech}</strong>
-                <ul>
-                  {meaning.definitions?.map((def: any, i: number) => (
-                    <li key={i}>{def.definition}</li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        ""
-      )} */}
     </div>
   );
 };
