@@ -1,7 +1,7 @@
-import SearchBar from "../../public/search-bar";
 import logo from "../assets/logo.png";
 import background from "../assets/background.png";
 import { motion } from "framer-motion";
+import SearchBar from "../components/search-bar";
 
 const HomePage = () => {
   const handleClick = () => {
