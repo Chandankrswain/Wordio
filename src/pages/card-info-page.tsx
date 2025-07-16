@@ -54,7 +54,7 @@ const InfoCard = () => {
   };
 
   return (
-    <div className="flex flex-col md:w-[40%] mx-auto h-screen overflow-y-auto p-7 bg-[#6EE679]">
+    <div className="flex flex-col md:w-[40%] mx-auto h-screen overflow-y-auto p-7 bg-yellow-200">
       <img
         src={logo}
         alt="Wordio Logo"
@@ -79,7 +79,7 @@ const InfoCard = () => {
           <InnerCard wordMeaning={wordInfo} />
         </div>
       ) : (
-        "404 error"
+        "No word found!"
       )}
     </div>
   );
