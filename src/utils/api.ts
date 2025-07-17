@@ -1,4 +1,4 @@
-import apiClient from "../services/axios";
+import apiClient from "../services/axios/dictioanry-axios";
 import { WORD_SEARCH_API } from "../services/constants/ApiEndPoint";
 
 export class WordData {
