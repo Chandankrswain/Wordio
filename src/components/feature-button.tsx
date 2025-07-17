@@ -5,9 +5,9 @@ interface FeatureButtonProps {
 
 const FeatureButton = ({ icon, label }: FeatureButtonProps) => {
   return (
-    <div className="border border-gray-300 rounded-[35px] w-[120px] h-[120px] flex flex-col items-center justify-center hover:border-black active:border-black transition-colors duration-200 cursor-pointer">
+    <div className="border border-r-4 border-b-4 rounded-[40px] w-[40vw] max-w-[100px] h-[100px] flex flex-col items-center justify-center hover:border-yellow-500 transition duration-200 ease-in-out mt-2 ">
       <button className="mb-2">{icon}</button>
-      <p className="text-sm ">{label}</p>
+      <p className="text-sm">{label}</p>
     </div>
   );
 };

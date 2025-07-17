@@ -15,19 +15,19 @@ const HomePage = () => {
 
   const features = [
     {
-      icon: <PiVoicemailThin className="w-12 h-12" />,
+      icon: <PiVoicemailThin className="w-10 h-10" />,
       label: "Voice",
     },
     {
-      icon: <PiTextAaThin className="w-12 h-12" />,
+      icon: <PiTextAaThin className="w-10 h-10" />,
       label: "Text",
     },
     {
-      icon: <PiScanThin className="w-12 h-12" />,
+      icon: <PiScanThin className="w-10 h-10" />,
       label: "Camera",
     },
     {
-      icon: <PiDownloadSimpleThin className="w-12 h-12" />,
+      icon: <PiDownloadSimpleThin className="w-10 h-10" />,
       label: "Import",
     },
   ];
@@ -39,19 +39,19 @@ const HomePage = () => {
           <img
             src={logo}
             alt="Wordio Logo"
-            className="w-44 h-10 ml-2 mt-6 mb-14"
+            className="w-44 h-10 ml-2 mt-6 mb-5"
             onClick={handleClick}
           />
-          <div className="p-4 flex flex-col h-[50%] justify-between">
-            <p className="text-[28px] font-display">Hello</p>
+          <div className="p-4 flex flex-col h-[60%] justify-between">
+            <p className="text-[20px] font-display">Hello</p>
             <p className="text-[35px] font-display">
               What can I find and translate for you today?
             </p>
           </div>
           <SearchBar />
         </div>
-        <div className="h-[60%] rounded-tl-[170px] bg-[#F4F5F7] pl-20 pt-20 z-2">
-          <div className="flex flex-wrap gap-10 justify-start">
+        <div className="h-[60%] rounded-tl-[120px] bg-[#F4F5F7] px-6 pt-7 z-2 ">
+          <div className="flex flex-wrap gap-4 justify-center sm:justify-start ">
             {features.map((feature, index) => (
               <FeatureButton
                 key={index}
