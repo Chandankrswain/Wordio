@@ -50,7 +50,7 @@ const HomePage = () => {
           </div>
           <SearchBar />
         </div>
-        <div className="h-[60%] rounded-tl-[120px] bg-[#F4F5F7] px-6 pt-7 z-2 ">
+        <div className="h-[60%] rounded-tl-[120px] bg-[#F4F5F7] px-6 pt-7 z-2 relative">
           <div className="flex flex-wrap gap-4 justify-center sm:justify-start ">
             {features.map((feature, index) => (
               <FeatureButton
@@ -59,6 +59,9 @@ const HomePage = () => {
                 label={feature.label}
               />
             ))}
+            <div className="absolute rotate-90 bottom-20 right-[-14px] bg-yellow-200 p-2 pl-4 pr-4 rounded-lg  ">
+              Extra
+            </div>
           </div>
         </div>
       </div>

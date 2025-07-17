@@ -33,7 +33,7 @@ const SearchBar = () => {
           onChange={handleInput}
           value={inputValue}
         />
-        <button className="p-2" type="submit" onClick={handleSubmittion}>
+        <button className="p-2 " type="submit" onClick={handleSubmittion}>
           <BsArrowRight className="w-13 h-13 border p-3 rounded-full" />
         </button>
       </form>
