@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import logo from "../assets/logo.png";
 import FeatureButton from "../components/feature-button";
 import SearchBar from "../components/search-bar";
@@ -14,7 +14,7 @@ const HomePage = () => {
     window.location.href = "/";
   };
 
-  const navigate = useNavigate();
+  let navigate = useNavigate();
 
   const features = [
     {
