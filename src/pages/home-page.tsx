@@ -14,7 +14,7 @@ const HomePage = () => {
     window.location.href = "/";
   };
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const features = [
     {
