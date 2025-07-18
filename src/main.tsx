@@ -15,24 +15,16 @@ const router = createBrowserRouter([
     path: "/",
     element: <Layout />,
     children: [
-      { path: "/", element: <HomePage /> },
+      { index: true, element: <HomePage /> },
       { path: ":word", element: <CardInfoPage /> },
       { path: "voice-to-text-translate", element: <VoiceToTextTranslate /> },
-      {
-        path: "click-to-text-translate ",
-        element: <ClickToTextTranslate />,
-      },
-      {
-        path: "import-to-text-translate",
-        element: <ImportToTextTranslate />,
-      },
-      {
-        path: "text-to-text-translate",
-        element: <TextToTextTranslate />,
-      },
+      { path: "click-to-text-translate", element: <ClickToTextTranslate /> },
+      { path: "import-to-text-translate", element: <ImportToTextTranslate /> },
+      { path: "text-to-text-translate", element: <TextToTextTranslate /> },
     ],
   },
 ]);
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <RouterProvider router={router} />

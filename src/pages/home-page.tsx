@@ -72,7 +72,7 @@ const HomePage = () => {
                 key={index}
                 icon={feature.icon}
                 label={feature.label}
-                onClick={handleClick}
+                onClick={feature.handleClick}
               />
             ))}
             <div className="absolute rotate-90 bottom-20 right-[-14px] bg-yellow-200 p-2 pl-4 pr-4 rounded-lg  ">
