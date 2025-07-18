@@ -1,6 +1,7 @@
 interface FeatureButtonProps {
   icon: React.ReactNode;
   label: string;
+  onClick: () => void;
 }
 
 const FeatureButton = ({ icon, label }: FeatureButtonProps) => {

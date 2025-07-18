@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import FeatureButton from "../components/feature-button";
 import SearchBar from "../components/search-bar";
@@ -13,22 +14,36 @@ const HomePage = () => {
     window.location.href = "/";
   };
 
+  const navigate = useNavigate();
+
   const features = [
     {
       icon: <PiVoicemailThin className="w-10 h-10" />,
       label: "Voice",
+      handleClick: () => {
+        navigate("/voice-to-text-translate");
+      },
     },
     {
       icon: <PiTextAaThin className="w-10 h-10" />,
       label: "Text",
+      handleClick: () => {
+        navigate("/text-to-text-translate");
+      },
     },
     {
       icon: <PiScanThin className="w-10 h-10" />,
       label: "Camera",
+      handleClick: () => {
+        navigate("/click-to-text-translate");
+      },
     },
     {
       icon: <PiDownloadSimpleThin className="w-10 h-10" />,
       label: "Import",
+      handleClick: () => {
+        navigate("/import-to-text-translate");
+      },
     },
   ];
 
@@ -57,6 +72,7 @@ const HomePage = () => {
                 key={index}
                 icon={feature.icon}
                 label={feature.label}
+                onClick={handleClick}
               />
             ))}
             <div className="absolute rotate-90 bottom-20 right-[-14px] bg-yellow-200 p-2 pl-4 pr-4 rounded-lg  ">
