@@ -21,7 +21,7 @@ const HomePage = () => {
       icon: <PiVoicemailThin className="w-10 h-10" />,
       label: "Voice",
       handleClick: () => {
-        navigate("/voice-to-text-translate");
+        navigate(`/voice-to-text-translate`);
       },
     },
     {

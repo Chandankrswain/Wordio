@@ -4,7 +4,7 @@ interface FeatureButtonProps {
   onClick: () => void;
 }
 
-const FeatureButton = ({ icon, label }: FeatureButtonProps) => {
+const FeatureButton = ({ icon, label, onClick }: FeatureButtonProps) => {
   return (
     <div
       className="border border-r-4 border-b-4 rounded-[40px] w-[40vw] max-w-[100px] h-[100px] 
@@ -13,7 +13,9 @@ const FeatureButton = ({ icon, label }: FeatureButtonProps) => {
              active:border-r-2 active:border-b-2 
              transition-transform duration-100 ease-in-out"
     >
-      <button className="mb-2">{icon}</button>
+      <button className="mb-2" onClick={onClick}>
+        {icon}
+      </button>
       <p className="text-sm">{label}</p>
     </div>
   );
