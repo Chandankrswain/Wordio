@@ -58,7 +58,7 @@ const HomePage = () => {
             onClick={handleClick}
           />
           <div className="p-4 flex flex-col h-[60%] justify-between">
-            <p className="text-[20px] font-display">Hello</p>
+            <p className="text-[20px] font-display">Hello ,</p>
             <p className="text-[35px] font-display">
               What can I find and translate for you today?
             </p>
