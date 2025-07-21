@@ -22,7 +22,6 @@ const TextToTextTranslate = () => {
     try {
       const result = await data.fetchLanguages();
       setAllLanguages(result);
-      console.log(result);
     } catch (error) {
       console.error("Error fetching languages:", error);
     } finally {
@@ -37,6 +36,7 @@ const TextToTextTranslate = () => {
       fetchData();
     }
   };
+
   const TextBoxArray = [
     {
       placeholder: "Enter the text here................",
@@ -82,9 +82,9 @@ const TextToTextTranslate = () => {
           <div className="text-sm text-gray-700">Loading languages...</div>
         ) : (
           allLanguage.map((lang, index) => (
-            <div key={index}>
-              {lang.name} ({lang.code})
-            </div>
+            <button className="flex flex-col" key={index} onClick={() => ({})}>
+              {lang.name}
+            </button>
           ))
         )}
       </div>
