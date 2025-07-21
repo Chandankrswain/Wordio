@@ -24,7 +24,6 @@ export class LanguageData {
 
   async fetchLanguages() {
     const response = await this.client.get("/languages");
-    console.log("res:", response);
     return response.data;
   }
 }

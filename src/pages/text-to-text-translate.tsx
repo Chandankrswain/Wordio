@@ -22,6 +22,7 @@ const TextToTextTranslate = () => {
     try {
       const result = await data.fetchLanguages();
       setAllLanguages(result);
+      console.log(result);
     } catch (error) {
       console.error("Error fetching languages:", error);
     } finally {
