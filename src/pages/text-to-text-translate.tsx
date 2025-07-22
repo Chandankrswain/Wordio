@@ -83,7 +83,7 @@ const TextToTextTranslate = () => {
         ) : (
           allLanguage.map((lang, index) => (
             <button className="flex flex-col" key={index} onClick={() => ({})}>
-              {lang.name} ({lang.code})
+              {lang.name}
             </button>
           ))
         )}
