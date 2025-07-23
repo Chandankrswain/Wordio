@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const apiClient = axios.create({
-  baseURL: "https://api.mymemory.translated.net/get",
+const apiClientTranslate = axios.create({
+  baseURL: "https://api.mymemory.translated.net",
   timeout: 1000,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-export default apiClient;
+export default apiClientTranslate;
