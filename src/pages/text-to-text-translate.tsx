@@ -43,8 +43,7 @@ const TextToTextTranslate = () => {
         languageFrom,
         languageTo
       );
-      console.log(result.responseData.translatedText);
-      setTranslatedText(result);
+      setTranslatedText(result.responseData.translatedText);
     } catch (error) {
       console.error("Translation failed:", error);
     }
@@ -138,6 +137,7 @@ const TextToTextTranslate = () => {
           Translate
         </button>
       </div>
+      <h1>{translatedText}</h1>
     </div>
   );
 };
