@@ -137,7 +137,7 @@ const TextToTextTranslate = () => {
         </div>
       </div>
       {/* Language Buttons */}
-      <div className="flex w-full justify-center absolute bottom-0 h-16 items-stretch z-30">
+      <div className="flex w-full justify-center bottom-0 h-16 items-stretch z-30">
         <div className="flex items-center">
           <button
             onClick={() => handleClick("from")}
