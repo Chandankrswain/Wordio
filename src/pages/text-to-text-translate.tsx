@@ -2,12 +2,10 @@ import TextBox from "../components/text-box";
 import logo from "../assets/logo.png";
 import HeadingButton from "../components/heading-button";
 import {
-  PiArrowsClockwiseThin,
-  PiCopySimpleLight,
   PiCopySimpleThin,
   PiSoundcloudLogoThin,
+  PiSwapThin,
   PiTextAaThin,
-  PiUserSoundLight,
 } from "react-icons/pi";
 import LanguageButton from "../components/language-button";
 import { useEffect, useState } from "react";
@@ -147,7 +145,7 @@ const TextToTextTranslate = () => {
           >
             Change From
           </button>
-          <PiArrowsClockwiseThin className="w-16 p-4 h-full p-2 shadow-2xl rounded-full " />
+          <PiSwapThin className="w-16 p-4 h-full p-2 shadow-2xl rounded-full " />
         </div>
         <button
           className="bg-yellow-200 h-full rounded-tr-4xl px-7 "
