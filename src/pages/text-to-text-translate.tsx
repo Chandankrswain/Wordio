@@ -108,7 +108,7 @@ const TextToTextTranslate = () => {
           label="Text Translate"
         />
       </div>
-      <div className="relative h-[80%]">
+      <div className="relative h-[78%]">
         {/* Text Input */}
         <div className="bg-yellow-100 p-8 h-[350px] rounded-tl-[120px]">
           <div className="flex justify-between items-center">
@@ -139,18 +139,22 @@ const TextToTextTranslate = () => {
         </div>
       </div>
       {/* Language Buttons */}
-      <div className="flex w-full  h- z-30">
-        <LanguageButton
-          label="Change From"
-          onClick={() => handleClick("from")}
-          className="bg-red-400  p-5"
-        />
-        <PiArrowsClockwiseThin />
-        <LanguageButton
-          label="Change To"
-          className="bg-blue-400  p-5"
+      <div className="flex w-full justify-center absolute bottom-0 h-16 items-stretch z-30">
+        <div className="flex items-center">
+          <button
+            onClick={() => handleClick("from")}
+            className="bg-[#f3f5f7] rounded-tl-4xl h-full pl-7 mr-2 "
+          >
+            Change From
+          </button>
+          <PiArrowsClockwiseThin className="w-16 p-4 h-full p-2 shadow-2xl rounded-full " />
+        </div>
+        <button
+          className="bg-yellow-200 h-full rounded-tr-4xl px-7 "
           onClick={() => handleClick("to")}
-        />
+        >
+          Change To
+        </button>
       </div>
 
       {(allLanguage.length > 0 || isLoading) && (
