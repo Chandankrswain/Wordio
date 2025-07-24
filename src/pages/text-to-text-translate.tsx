@@ -2,6 +2,7 @@ import TextBox from "../components/text-box";
 import logo from "../assets/logo.png";
 import HeadingButton from "../components/heading-button";
 import {
+  PiArrowsClockwiseThin,
   PiCopySimpleLight,
   PiCopySimpleThin,
   PiSoundcloudLogoThin,
@@ -107,7 +108,6 @@ const TextToTextTranslate = () => {
           label="Text Translate"
         />
       </div>
-
       <div className="relative h-[80%]">
         {/* Text Input */}
         <div className="bg-yellow-100 p-8 h-[350px] rounded-tl-[120px]">
@@ -138,37 +138,38 @@ const TextToTextTranslate = () => {
           </p>
         </div>
       </div>
-
       {/* Language Buttons */}
-      <div className="flex w-full justify-evenly z-30">
+      <div className="flex w-full  h- z-30">
         <LanguageButton
           label="Change From"
           onClick={() => handleClick("from")}
-          className=""
+          className="bg-red-400  p-5"
         />
+        <PiArrowsClockwiseThin />
         <LanguageButton
           label="Change To"
-          className=""
+          className="bg-blue-400  p-5"
           onClick={() => handleClick("to")}
         />
       </div>
 
-      {/* Language dropdown */}
-      <div className="mt-2 px-4 z-20">
-        {isLoading ? (
-          <div className="text-sm text-gray-700">Loading languages...</div>
-        ) : (
-          allLanguage.map((lang, index) => (
-            <button
-              key={index}
-              className="py-1 px-3 bg-white hover:bg-gray-100 rounded mb-1 text-left w-full"
-              onClick={() => handleLanguageSelect(lang.code, lang.name)}
-            >
-              {lang.name}
-            </button>
-          ))
-        )}
-      </div>
+      {(allLanguage.length > 0 || isLoading) && (
+        <div className="mt-2 px-4 z-20">
+          {isLoading ? (
+            <p className="text-sm text-gray-700">Loading languages...</p>
+          ) : (
+            allLanguage.map((lang, index) => (
+              <button
+                key={index}
+                className="py-1 px-3 bg-white hover:bg-gray-100 rounded mb-1 text-left w-full"
+                onClick={() => handleLanguageSelect(lang.code, lang.name)}
+              >
+                {lang.name}
+              </button>
+            ))
+          )}
+        </div>
+      )}
     </div>
   );
 };
