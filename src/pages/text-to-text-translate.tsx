@@ -120,7 +120,7 @@ const TextToTextTranslate = () => {
   return (
     <div className="flex flex-col md:w-[40%] mx-auto h-screen overflow-y-auto bg-yellow-200 justify-between">
       {/* Header */}
-      <div className="h-26 flex justify-between">
+      <div className="h-26 flex justify-between mb-2">
         <img
           src={logo}
           alt="Wordio Logo"
@@ -134,7 +134,7 @@ const TextToTextTranslate = () => {
       </div>
       <div className="relative h-screen">
         {/* Text Input */}
-        <div className="bg-yellow-100 p-8 rounded-tl-[120px] h-[400px]">
+        <div className="bg-[#f3f5f7] p-8 rounded-tl-[120px] h-[400px]">
           <div className="flex justify-between items-center">
             <div className="flex items-center w-[60%]">
               <PiSoundcloudLogoThin className="w-8 h-8 ml-8" />
@@ -154,7 +154,7 @@ const TextToTextTranslate = () => {
         </div>
 
         {/* Translated Text Output */}
-        <div className=" text-gray-900 p-8 w-full absolute top-60 bg-[#f4f5f7] rounded-tl-[120px] shadow">
+        <div className=" text-gray-900 p-8 w-full absolute top-60 bg-yellow-200 rounded-tl-[120px] ">
           <div className="flex justify-between mt-4 items-center">
             <div className="flex items-center  w-[60%]">
               <PiSoundcloudLogoThin className="w-8 h-8 ml-8" />
