@@ -173,7 +173,7 @@ const TextToTextTranslate = () => {
       </div>
 
       {/* Language Buttons */}
-      <div className="flex w-full justify-center mb-6 gap-2 items-stretch z-40">
+      <div className="flex flex-wrap w-full justify-center mb-6 gap-2 items-stretch z-40">
         <MainButton
           onClick={() => handleClick("from")}
           className="h-full rounded-4xl border border-r-5 border-b-5 bg-[#f3f5f7] [30%]  "
@@ -188,7 +188,7 @@ const TextToTextTranslate = () => {
 
         <MainButton
           icon={<PiSwapThin className="w-6 h-6 text-gray-700" />}
-          className="w-15 p-3 h-full rounded-full border border-r-5 border-b-5 bg-[#f3f5f7] hover:bg-gray-100 transition-all duration-200"
+          className="w-15 p-3 h-full rounded-full mr-3 border border-r-5 border-b-5 bg-[#f3f5f7] hover:bg-gray-100 transition-all duration-200"
           onClick={handleSwapLanguages}
         />
       </div>
