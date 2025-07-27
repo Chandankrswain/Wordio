@@ -105,6 +105,17 @@ const TextToTextTranslate = () => {
     }
   };
 
+  const handleSwapLanguages = () => {
+    const tempLanguage = languageFrom;
+    setLanguageFrom(languageTo);
+    setLanguageTo(tempLanguage);
+    const tempSelectedLanguage = selectedLanguageFrom;
+    setSelectedLanguageFrom(selectedLanguageTo);
+    setSelectedLanguagTo(tempSelectedLanguage);
+    setTextBoxContent(translatedText);
+    setTranslatedText(textBoxContent);
+  };
+
   return (
     <div className="flex flex-col md:w-[40%] mx-auto h-screen overflow-y-auto bg-yellow-200 justify-between">
       {/* Header */}
@@ -165,7 +176,10 @@ const TextToTextTranslate = () => {
           >
             Change From
           </button>
-          <PiSwapThin className="w-16 p-4 h-full p-2 shadow-2xl rounded-full " />
+          <PiSwapThin
+            className="w-16 p-4 h-full p-2 shadow-2xl rounded-full "
+            onClick={handleSwapLanguages}
+          />
         </div>
         <button
           className="bg-yellow-200 h-full rounded-tr-4xl px-7 "
@@ -183,7 +197,7 @@ const TextToTextTranslate = () => {
             allLanguage.map((lang, index) => (
               <button
                 key={index}
-                className="py-1 px-3 bg-white hover:bg-gray-100 rounded mb-1 text-left w-full h-full"
+                className="py-1 px-3 bg-white hover:bg-gray-100 rounded mb-1 text-left w-full "
                 onClick={() => handleLanguageSelect(lang.code, lang.name)}
               >
                 {lang.name}
