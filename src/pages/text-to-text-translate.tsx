@@ -7,7 +7,6 @@ import {
   PiSwapThin,
   PiTextAaThin,
 } from "react-icons/pi";
-import LanguageButton from "../components/language-button";
 import { useEffect, useState } from "react";
 import { LanguageData, TranslateData } from "../utils/api";
 
@@ -91,6 +90,21 @@ const TextToTextTranslate = () => {
     setTextBoxContent(e.target.value);
   };
 
+  const handleCopyToClipboard = () => {
+    if (translatedText || textBoxContent) {
+      navigator.clipboard
+        .writeText(translatedText || textBoxContent)
+        .then(() => {
+          alert("Translation copied to clipboard!");
+        })
+        .catch((error) => {
+          console.error("Failed to copy text:", error);
+        });
+    } else {
+      alert("No translation available to copy.");
+    }
+  };
+
   return (
     <div className="flex flex-col md:w-[40%] mx-auto h-screen overflow-y-auto bg-yellow-200 justify-between">
       {/* Header */}
@@ -114,7 +128,10 @@ const TextToTextTranslate = () => {
               <PiSoundcloudLogoThin className="w-8 h-8 ml-8" />
               <p className="ml-3">{selectedLanguageFrom}</p>
             </div>
-            <PiCopySimpleThin className="w-5 h-5" />
+            <PiCopySimpleThin
+              className="w-5 h-5"
+              onClick={handleCopyToClipboard}
+            />
           </div>
           <TextBox
             placeholder="Enter the text here"
@@ -123,13 +140,16 @@ const TextToTextTranslate = () => {
             onChange={handleChange}
           />
         </div>
-        <div className=" text-gray-900 absolute top-64 p-8 w-full sp-4 h-full bg-[#f4f5f7] rounded-tl-[120px] shadow">
+        <div className=" text-gray-900 absolute top-70 p-8 w-full sp-4 h-[60%] bg-[#f4f5f7] rounded-tl-[120px] shadow">
           <div className="flex justify-between mt-4 items-center">
             <div className="flex items-center  w-[60%]">
               <PiSoundcloudLogoThin className="w-8 h-8 ml-8" />
               <p className="ml-3">{selectedLanguageTo}</p>
             </div>
-            <PiCopySimpleThin className="w-5 h-5" />
+            <PiCopySimpleThin
+              className="w-5 h-5"
+              onClick={handleCopyToClipboard}
+            />
           </div>
           <p className="text-2xl p-4 leading-12 overflow-auto ml-5 h-54 text-black">
             {translatedText || "Translation..."}
@@ -163,7 +183,7 @@ const TextToTextTranslate = () => {
             allLanguage.map((lang, index) => (
               <button
                 key={index}
-                className="py-1 px-3 bg-white hover:bg-gray-100 rounded mb-1 text-left w-full"
+                className="py-1 px-3 bg-white hover:bg-gray-100 rounded mb-1 text-left w-full h-full"
                 onClick={() => handleLanguageSelect(lang.code, lang.name)}
               >
                 {lang.name}
