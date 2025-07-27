@@ -9,9 +9,7 @@ const HeadingButton = ({ icon, label }: Props) => {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => {
-    if (!isClicked) {
-      setIsClicked(true);
-    } else setIsClicked(false);
+    setIsClicked(!isClicked);
   };
 
   return (
@@ -19,7 +17,7 @@ const HeadingButton = ({ icon, label }: Props) => {
       <div className="flex flex-col items-center relative">
         <button
           onClick={handleClick}
-          className="bg-[#F4F5F7] mr-5 border border-b-4 border-r-4 rounded rounded-2xl "
+          className="bg-[#F4F5F7] mr-5 border border-b-4 border-r-4 rounded-2xl transition-transform duration-150 ease-in-out active:scale-95"
         >
           {icon}
         </button>

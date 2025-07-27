@@ -10,6 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import { LanguageData, TranslateData } from "../utils/api";
 import Button from "../components/button";
+import MainButton from "../components/main-button";
 
 interface LanguageDataType {
   name: string;
@@ -172,21 +173,22 @@ const TextToTextTranslate = () => {
       </div>
 
       {/* Language Buttons */}
-      <div className="flex w-full justify-center mb-4 gap-2 items-stretch z-40">
-        <Button
+      <div className="flex w-full justify-center mb-6 gap-2 items-stretch z-40">
+        <MainButton
           onClick={() => handleClick("from")}
-          className="bg-yellow-200 h-full rounded-4xl border w-[30%]  "
+          className="h-full rounded-4xl border border-r-5 border-b-5 bg-[#f3f5f7] [30%]  "
           label={selectedLanguageFrom || "Change from"}
         />
 
-        <Button
+        <MainButton
           label={selectedLanguageTo || "Change to"}
-          className="bg-yellow-200 h-full rounded-4xl border w-[30%]  "
+          className="h-full rounded-4xl border border-r-5 border-b-5 bg-[#f3f5f7] [30%]  "
           onClick={() => handleClick("to")}
         />
 
-        <PiSwapThin
-          className="w-13 p-3 h-full  rounded-full border"
+        <MainButton
+          icon={<PiSwapThin className="w-6 h-6 text-gray-700" />}
+          className="w-15 p-3 h-full rounded-full border border-r-5 border-b-5 bg-[#f3f5f7] hover:bg-gray-100 transition-all duration-200"
           onClick={handleSwapLanguages}
         />
       </div>
