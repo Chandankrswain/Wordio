@@ -9,6 +9,7 @@ import {
 } from "react-icons/pi";
 import { useEffect, useState } from "react";
 import { LanguageData, TranslateData } from "../utils/api";
+import Button from "../components/button";
 
 interface LanguageDataType {
   name: string;
@@ -131,9 +132,9 @@ const TextToTextTranslate = () => {
           label="Text Translate"
         />
       </div>
-      <div className="relative h-[78%]">
+      <div className="relative h-screen">
         {/* Text Input */}
-        <div className="bg-yellow-100 p-8 h-[350px] rounded-tl-[120px]">
+        <div className="bg-yellow-100 p-8 rounded-tl-[120px] h-[400px]">
           <div className="flex justify-between items-center">
             <div className="flex items-center w-[60%]">
               <PiSoundcloudLogoThin className="w-8 h-8 ml-8" />
@@ -151,7 +152,9 @@ const TextToTextTranslate = () => {
             onChange={handleChange}
           />
         </div>
-        <div className=" text-gray-900 absolute top-70 p-8 w-full sp-4 h-[60%] bg-[#f4f5f7] rounded-tl-[120px] shadow">
+
+        {/* Translated Text Output */}
+        <div className=" text-gray-900 p-8 w-full absolute top-60 bg-[#f4f5f7] rounded-tl-[120px] shadow">
           <div className="flex justify-between mt-4 items-center">
             <div className="flex items-center  w-[60%]">
               <PiSoundcloudLogoThin className="w-8 h-8 ml-8" />
@@ -167,28 +170,28 @@ const TextToTextTranslate = () => {
           </p>
         </div>
       </div>
+
       {/* Language Buttons */}
-      <div className="flex w-full justify-center bottom-0 h-16 items-stretch z-30">
-        <div className="flex items-center">
-          <button
-            onClick={() => handleClick("from")}
-            className="bg-[#f3f5f7] rounded-tl-4xl h-full pl-7 mr-2 "
-          >
-            Change From
-          </button>
-          <PiSwapThin
-            className="w-16 p-4 h-full p-2 shadow-2xl rounded-full "
-            onClick={handleSwapLanguages}
-          />
-        </div>
-        <button
-          className="bg-yellow-200 h-full rounded-tr-4xl px-7 "
+      <div className="flex w-full justify-center mb-2 gap-2 bottom-0  items-stretch z-40">
+        <Button
+          onClick={() => handleClick("from")}
+          className="bg-yellow-200 h-full rounded-4xl border w-[30%]  "
+          label={selectedLanguageFrom || "Change from"}
+        />
+
+        <Button
+          label={selectedLanguageTo || "Change to"}
+          className="bg-yellow-200 h-full rounded-4xl border w-[30%]  "
           onClick={() => handleClick("to")}
-        >
-          Change To
-        </button>
+        />
+
+        <PiSwapThin
+          className="w-13 p-3 h-full  rounded-full border"
+          onClick={handleSwapLanguages}
+        />
       </div>
 
+      {/* Language Selection Dropdown */}
       {(allLanguage.length > 0 || isLoading) && (
         <div className="mt-2 px-4 z-20">
           {isLoading ? (
