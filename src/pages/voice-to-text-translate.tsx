@@ -33,6 +33,7 @@ const VoiceToTextTranslate = () => {
     if (isListening) {
       SpeechRecognition.stopListening();
       setIsListening(false);
+      fetchTranslateText(transcript, "hi", "en");
     } else {
       setIsListening(true);
       SpeechRecognition.startListening({
@@ -58,14 +59,6 @@ const VoiceToTextTranslate = () => {
       console.error("Translation failed:", error);
     }
   };
-
-  useEffect(() => {
-    if (transcript.trim()) {
-      fetchTranslateText(transcript, "en", "hi");
-    } else {
-      setTranslatedText("");
-    }
-  }, [transcript]);
 
   return (
     <div className="flex flex-col md:w-[40%] mx-auto h-screen overflow-y-auto bg-yellow-200">
