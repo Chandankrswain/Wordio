@@ -1,6 +1,4 @@
 import TextBox from "../components/text-box";
-import logo from "../assets/logo.png";
-import HeadingButton from "../components/heading-button";
 import {
   PiCopySimpleThin,
   PiSoundcloudLogoThin,
@@ -9,8 +7,8 @@ import {
 } from "react-icons/pi";
 import { useEffect, useState } from "react";
 import { LanguageData, TranslateData } from "../utils/api";
-import Button from "../components/button";
 import MainButton from "../components/main-button";
+import Header from "../components/header";
 
 interface LanguageDataType {
   name: string;
@@ -120,17 +118,10 @@ const TextToTextTranslate = () => {
 
   return (
     <div className="flex flex-col md:w-[40%] mx-auto h-screen overflow-y-auto bg-yellow-200 justify-between">
-      {/* Header */}
-      <div className="h-26 flex justify-between mb-2">
-        <img
-          src={logo}
-          alt="Wordio Logo"
-          className="w-44 h-10 ml-3 mt-8 mb-5"
-          onClick={() => (window.location.href = "/")}
-        />
-        <HeadingButton
+      <div>
+        <Header
           icon={<PiTextAaThin className="w-7 h-7 m-2 cursor-pointer z-10" />}
-          label="Text Translate"
+          text="Text Translate"
         />
       </div>
       <div className="relative h-screen">

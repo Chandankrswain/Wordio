@@ -3,17 +3,22 @@ import { useState } from "react";
 interface Props {
   icon: React.ReactNode;
   label: string;
+  onClick?: () => void;
+  className?: string;
 }
 
-const HeadingButton = ({ icon, label }: Props) => {
+const HeadingButton = ({ icon, label, onClick, className }: Props) => {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => {
     setIsClicked(!isClicked);
+    if (onClick) onClick();
   };
 
   return (
-    <div className="flex justify-end items-center w-[50%] relative overflow-visible m-5">
+    <div
+      className={`flex justify-end items-center w-[50%] relative overflow-visible m-5 ${className}`}
+    >
       <div className="flex flex-col items-center relative">
         <button
           onClick={handleClick}
