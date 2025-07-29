@@ -178,7 +178,7 @@ const TextToTextTranslate = () => {
         />
 
         <MainButton
-          icon={<PiSwapThin className="w-6 h-6 text-gray-700" />}
+          icon={<PiSwapThin className="w-6 h-6 " />}
           className="w-15 p-3 h-full rounded-full mr-3 border border-r-5 border-b-5 bg-[#f3f5f7] hover:bg-gray-100 transition-all duration-200"
           onClick={handleSwapLanguages}
         />
