@@ -186,26 +186,24 @@ const ImportToTextTranslate = () => {
         </div>
       )}
 
-      <div className="flex items-start items-center justify-center p-4">
-        <div className="flex flex-col items-center ">
+      <div className="flex items-end items-center justify-center pl-10 pb-2 pt-2 bg-[#f3f5f7] rounded-tl-[120px] mt-5">
+        <div className="flex flex-col items-center mb-10">
           {image && !loading && (
             <div>
               <img
                 src={URL.createObjectURL(image)}
                 alt="Captured"
-                className="w-20 h-24 rounded border"
+                className="w-20 h-24 rounded border blur-[3px]"
               />
             </div>
           )}
           <p>File</p>
         </div>
 
-        <div className="flex flex-col ml-4 w-full">
-          <p className="font-display text-3xl font-medium mb-2">
-            Extracted Text
-          </p>
+        <div className="flex flex-col w-full p-5">
+          <p className="font-display text-3xl font-bold mb-3">Extracted Text</p>
           {extractedText && !loading && (
-            <p className="text-gray-900 w-full text-sm leading-6 ">
+            <p className="text-gray-900 w-full font-thin text-sm leading-6 overflow-y-auto h-40 pr-4 hide-scrollbar">
               {extractedText}
             </p>
           )}
@@ -219,7 +217,9 @@ const ImportToTextTranslate = () => {
         </div>
       ) : (
         translatedText && (
-          <div className="text-gray-900 p-8 w-full">{translatedText}</div>
+          <div className="text-gray-900 p-8 w-full absolute bottom-40 bg-yellow-100 rounded-tl-[120px]">
+            {translatedText}
+          </div>
         )
       )}
     </div>
