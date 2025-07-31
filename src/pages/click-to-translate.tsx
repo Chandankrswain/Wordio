@@ -89,17 +89,14 @@ const ClickToTextTranslate = () => {
         text="Import Translate"
       />
 
-      <label className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer">
-        Open Camera
-        <input
-          type="file"
-          accept="image/*"
-          capture="environment"
-          onChange={handleCapture}
-          className="hidden"
-        />
-      </label>
-
+      <input
+        id="capture-photo"
+        type="file"
+        accept="image/*"
+        capture="environment"
+        onChange={handleCapture}
+        className="hidden"
+      />
       <div className="flex flex-wrap w-full justify-center mb-6 gap-2 items-stretch z-40">
         <MainButton
           onClick={extractText}
@@ -156,7 +153,6 @@ const ClickToTextTranslate = () => {
       {extractedText && (
         <p className="text-gray-900 p-8 w-fulltop-70">{extractedText}</p>
       )}
-
       {translatedText && (
         <div className="text-gray-900 p-8 w-fulltop-70">{translatedText}</div>
       )}
