@@ -6,9 +6,11 @@ interface ButtonProps {
 
 const Button = ({ label, onClick, className }: ButtonProps) => {
   return (
-    <button onClick={onClick} className={className}>
-      {label}
-    </button>
+    <div>
+      <button onClick={onClick} className={className}>
+        {label}
+      </button>
+    </div>
   );
 };
 

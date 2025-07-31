@@ -4,8 +4,8 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import Header from "../components/header";
 import { useEffect, useState } from "react";
-import HeadingButton from "../components/heading-button";
 import { TranslateData } from "../utils/api";
+import RoundedButton from "../components/rounded-button";
 
 const VoiceToTextTranslate = () => {
   const [isListening, setIsListening] = useState(false);
@@ -67,19 +67,21 @@ const VoiceToTextTranslate = () => {
         text="VoiceText Translate"
       />
 
-      <HeadingButton
-        icon={
-          <PiMicrophoneThin className="w-10 h-10 m-2 cursor-pointer z-10" />
-        }
-        label={isListening ? "Listening..." : ""}
-        onClick={startListening}
-      />
-
-      <p className="p-4">{transcript || "🎙 Speak something..."}</p>
+      <p className="p-4 w-full h-[400px]">{transcript}</p>
       <button onClick={resetTranscript} className="p-2 bg-gray-200">
         Reset
       </button>
       <div>{translatedText}</div>
+      <div className="flex flex-col items-center justify-center">
+        <RoundedButton
+          icon={
+            <PiMicrophoneThin className="w-10 h-10 m-2 cursor-pointer z-10" />
+          }
+          label={isListening ? "Listening..." : ""}
+          title="Start Speaking"
+          onClick={startListening}
+        />
+      </div>
     </div>
   );
 };

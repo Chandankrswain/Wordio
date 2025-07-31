@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { LanguageData, TranslateData } from "../utils/api";
 import MainButton from "../components/main-button";
 import Header from "../components/header";
+import DotDotLoading from "../components/dot-loading";
 
 interface LanguageDataType {
   name: string;
@@ -163,6 +164,34 @@ const TextToTextTranslate = () => {
         </div>
       </div>
 
+      {/* Language Selection Dropdown */}
+      {/* Language Selection Dropdown */}
+      <div
+        className={`mt-2 px-4 z-20 ml-5 absolute h-[200px] w-[335px] overflow-y-auto bottom-20 bg-[#f3f5f7] rounded-4xl hide-scrollbar 
+    transition-all duration-300 ease-in-out transform 
+    ${
+      allLanguage.length > 0 || isLoading
+        ? "opacity-100 translate-y-0"
+        : "opacity-0 translate-y-5 pointer-events-none"
+    }`}
+      >
+        {isLoading ? (
+          <div className="flex justify-center items-center h-full">
+            <DotDotLoading />
+          </div>
+        ) : (
+          allLanguage.map((lang, index) => (
+            <button
+              key={index}
+              className="py-1 px-3 hover:bg-amber-200 rounded mb-1 text-center w-full text-lg"
+              onClick={() => handleLanguageSelect(lang.code, lang.name)}
+            >
+              {lang.name}
+            </button>
+          ))
+        )}
+      </div>
+
       {/* Language Buttons */}
       <div className="flex flex-wrap w-full justify-center mb-6 gap-2 items-stretch z-40">
         <MainButton
@@ -183,25 +212,6 @@ const TextToTextTranslate = () => {
           onClick={handleSwapLanguages}
         />
       </div>
-
-      {/* Language Selection Dropdown */}
-      {(allLanguage.length > 0 || isLoading) && (
-        <div className="mt-2 px-4 z-20">
-          {isLoading ? (
-            <p className="text-sm text-gray-700">Loading languages...</p>
-          ) : (
-            allLanguage.map((lang, index) => (
-              <button
-                key={index}
-                className="py-1 px-3 bg-white hover:bg-gray-100 rounded mb-1 text-left w-full "
-                onClick={() => handleLanguageSelect(lang.code, lang.name)}
-              >
-                {lang.name}
-              </button>
-            ))
-          )}
-        </div>
-      )}
     </div>
   );
 };
