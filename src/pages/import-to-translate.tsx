@@ -155,6 +155,15 @@ const ImportToTextTranslate = () => {
           )}
         </div>
       )}
+      {image && (
+        <div>
+          <img
+            src={URL.createObjectURL(image)}
+            alt="Captured"
+            className="w-16 h-24 mt-2 rounded border "
+          />
+        </div>
+      )}
       {loading && <p className="mt-2">Extracting text...</p>}
       {extractedText && (
         <p className="text-gray-900 p-8 w-fulltop-70">{extractedText}</p>
