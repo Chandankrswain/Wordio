@@ -90,7 +90,7 @@ const VoiceToTextTranslate = () => {
       />
 
       <div className="flex flex-col items-center relative h-screen ">
-        <div className=" text-gray-900 p-8 w-full bg-[#f3f5f7] rounded-tl-[120px] ">
+        <div className=" text-gray-900 p-8 w-full h-[350px] bg-[#f3f5f7] rounded-tl-[120px] ">
           <div className="flex justify-between mt-4 items-center">
             <div className="flex items-center  w-[60%]">
               <PiSoundcloudLogoThin className="w-8 h-8 ml-8" />
@@ -104,12 +104,12 @@ const VoiceToTextTranslate = () => {
               <PiArrowCounterClockwiseThin onClick={resetTranscript} />
             </div>
           </div>
-          <p className="text-2xl p-4 leading-12 overflow-auto ml-5 h-54 text-black">
+          <p className="text-xl p-4 leading-12 overflow-auto ml-5 h-44 text-black">
             {transcript || "Speak something..."}
           </p>
         </div>
 
-        <div className=" text-gray-900 p-8 w-full absolute top-70 bg-yellow-200 rounded-tl-[120px] ">
+        <div className=" text-gray-900 p-8 w-full absolute top-64 bg-yellow-200 rounded-tl-[120px] ">
           <div className="flex justify-between mt-4 items-center">
             <div className="flex items-center  w-[60%]">
               <PiSoundcloudLogoThin className="w-8 h-8 ml-8" />
@@ -120,16 +120,16 @@ const VoiceToTextTranslate = () => {
               onClick={handleCopyToClipboard}
             />
           </div>
-          <p className="text-2xl p-4 leading-12 overflow-auto ml-5 h-54 text-black">
+          <p className="text-xl p-4 leading-12 overflow-auto ml-5 h-44 text-black">
             {translatedText || "Translation..."}
           </p>
         </div>
       </div>
 
-      <p className="text-center text-xs mb-4 text-gray-600">
+      <p className="text-center text-xs mb-3 text-gray-600 z-40 ">
         Note : This Features only works in Google Chrome Browser
       </p>
-      <div className="flex flex-col items-center justify-center mb-2">
+      <div className="flex flex-col items-center justify-center mb-2 z-40">
         <RoundedButton
           icon={
             <PiMicrophoneThin className="w-10 h-10 m-2 cursor-pointer z-10 p-1" />
