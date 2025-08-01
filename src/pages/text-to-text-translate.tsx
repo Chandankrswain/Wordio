@@ -19,8 +19,8 @@ interface LanguageDataType {
 const TextToTextTranslate = () => {
   const [allLanguage, setAllLanguages] = useState<LanguageDataType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [languageTo, setLanguageTo] = useState("hi");
-  const [languageFrom, setLanguageFrom] = useState("en");
+  const [languageTo, setLanguageTo] = useState("hi-IN");
+  const [languageFrom, setLanguageFrom] = useState("en-IN");
   const [isSelectingTo, setIsSelectingTo] = useState<boolean>(true);
   const [textBoxContent, setTextBoxContent] = useState("");
   const [translatedText, setTranslatedText] = useState("");
@@ -146,8 +146,7 @@ const TextToTextTranslate = () => {
           />
         </div>
 
-        {/* Translated Text Output */}
-        <div className=" text-gray-900 p-8 w-full absolute top-70 bg-yellow-200 rounded-tl-[120px] ">
+        <div className=" text-gray-900 p-8 w-full absolute top-60 bg-yellow-200 rounded-tl-[120px] ">
           <div className="flex justify-between mt-4 items-center">
             <div className="flex items-center  w-[60%]">
               <PiSoundcloudLogoThin className="w-8 h-8 ml-8" />
@@ -164,8 +163,6 @@ const TextToTextTranslate = () => {
         </div>
       </div>
 
-      {/* Language Selection Dropdown */}
-      {/* Language Selection Dropdown */}
       <div
         className={`mt-2 px-4 z-20 ml-5 absolute h-[200px] w-[335px] overflow-y-auto bottom-20 bg-[#f3f5f7] rounded-4xl hide-scrollbar 
     transition-all duration-300 ease-in-out transform 
