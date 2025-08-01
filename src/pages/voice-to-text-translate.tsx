@@ -1,4 +1,10 @@
-import { PiMicrophoneThin, PiVoicemailThin } from "react-icons/pi";
+import {
+  PiArrowCounterClockwiseThin,
+  PiCopySimpleThin,
+  PiMicrophoneThin,
+  PiSoundcloudLogoThin,
+  PiVoicemailThin,
+} from "react-icons/pi";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -9,10 +15,11 @@ import RoundedButton from "../components/rounded-button";
 
 const VoiceToTextTranslate = () => {
   const [isListening, setIsListening] = useState(false);
-  const translator = new TranslateData();
   const [translatedText, setTranslatedText] = useState("");
   const { transcript, browserSupportsSpeechRecognition, resetTranscript } =
     useSpeechRecognition();
+
+  const translator = new TranslateData();
 
   useEffect(() => {
     navigator.mediaDevices
@@ -28,6 +35,21 @@ const VoiceToTextTranslate = () => {
   if (!browserSupportsSpeechRecognition) {
     return <p>Your browser does not support speech recognition.</p>;
   }
+
+  const handleCopyToClipboard = () => {
+    if (translatedText || transcript) {
+      navigator.clipboard
+        .writeText(translatedText || transcript)
+        .then(() => {
+          alert("Translation copied to clipboard!");
+        })
+        .catch((error) => {
+          console.error("Failed to copy text:", error);
+        });
+    } else {
+      alert("No translation available to copy.");
+    }
+  };
 
   const startListening = () => {
     if (isListening) {
@@ -61,23 +83,57 @@ const VoiceToTextTranslate = () => {
   };
 
   return (
-    <div className="flex flex-col md:w-[40%] mx-auto h-screen overflow-y-auto bg-yellow-200">
+    <div className="flex flex-col md:w-[40%] mx-auto h-screen overflow-y-auto justify-between bg-yellow-200">
       <Header
         icon={<PiVoicemailThin className="w-7 h-7 m-2 cursor-pointer z-10" />}
         text="VoiceText Translate"
       />
 
-      <p className="p-4 w-full h-[400px]">{transcript}</p>
-      <button onClick={resetTranscript} className="p-2 bg-gray-200">
-        Reset
-      </button>
-      <div>{translatedText}</div>
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center relative h-screen ">
+        <div className=" text-gray-900 p-8 w-full bg-[#f3f5f7] rounded-tl-[120px] ">
+          <div className="flex justify-between mt-4 items-center">
+            <div className="flex items-center  w-[60%]">
+              <PiSoundcloudLogoThin className="w-8 h-8 ml-8" />
+              <p className="ml-3">Hindi</p>
+            </div>
+            <div className="flex items-center space-x-3">
+              <PiCopySimpleThin
+                className="w-5 h-5"
+                onClick={handleCopyToClipboard}
+              />
+              <PiArrowCounterClockwiseThin onClick={resetTranscript} />
+            </div>
+          </div>
+          <p className="text-2xl p-4 leading-12 overflow-auto ml-5 h-54 text-black">
+            {transcript || "Speak something..."}
+          </p>
+        </div>
+
+        <div className=" text-gray-900 p-8 w-full absolute top-70 bg-yellow-200 rounded-tl-[120px] ">
+          <div className="flex justify-between mt-4 items-center">
+            <div className="flex items-center  w-[60%]">
+              <PiSoundcloudLogoThin className="w-8 h-8 ml-8" />
+              <p className="ml-3">English</p>
+            </div>
+            <PiCopySimpleThin
+              className="w-5 h-5"
+              onClick={handleCopyToClipboard}
+            />
+          </div>
+          <p className="text-2xl p-4 leading-12 overflow-auto ml-5 h-54 text-black">
+            {translatedText || "Translation..."}
+          </p>
+        </div>
+      </div>
+
+      <p className="text-center text-xs mb-4 text-gray-600">
+        Note : This Features only works in Google Chrome Browser
+      </p>
+      <div className="flex flex-col items-center justify-center mb-2">
         <RoundedButton
           icon={
-            <PiMicrophoneThin className="w-10 h-10 m-2 cursor-pointer z-10" />
+            <PiMicrophoneThin className="w-10 h-10 m-2 cursor-pointer z-10 p-1" />
           }
-          label={isListening ? "Listening..." : ""}
           title="Start Speaking"
           onClick={startListening}
         />
