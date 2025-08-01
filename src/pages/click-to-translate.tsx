@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Header from "../components/header";
-import { PiFileTextThin, PiScanThin, PiTranslateThin } from "react-icons/pi";
+import { PiCameraThin, PiScanThin, PiTranslateThin } from "react-icons/pi";
 import MainButton from "../components/main-button";
 import { LanguageData, TranslateData } from "../utils/api";
 import Tesseract from "tesseract.js";
@@ -97,32 +97,36 @@ const ClickToTextTranslate = () => {
         onChange={handleCapture}
         className="hidden"
       />
-      <div className="flex flex-wrap w-full justify-center mb-6 gap-2 items-stretch z-40">
+
+      <div className="flex flex-wrap w-full justify-center gap-2">
         <MainButton
           onClick={extractText}
-          className="h-full rounded-4xl border border-r-5 border-b-5 bg-[#f3f5f7] [30%]  "
+          className="rounded-4xl border border-r-5 border-b-5 bg-[#f3f5f7]"
           label={"Extract"}
+          title="Extract Text Here"
         />
-
         <MainButton
           label={selectedLanguageTo || "Change to"}
-          className="h-full rounded-4xl border border-r-5 border-b-5 bg-[#f3f5f7] [30%]  "
-          onClick={() => handleClick()}
+          className="h-full rounded-4xl border border-r-5 border-b-5 bg-[#f3f5f7]"
+          onClick={handleClick}
+          title="Change Language"
         />
-
         <MainButton
-          icon={<PiFileTextThin className="w-6 h-6 " />}
-          className="w-15 p-3 h-full rounded-full border border-r-5 border-b-5 bg-[#f3f5f7] hover:bg-gray-100 transition-all duration-200"
-          onClick={() => document.getElementById("file-upload")?.click()}
+          icon={<PiCameraThin className="w-6 h-6" />}
+          title="Open Camera"
+          className="w-15 p-3 h-full rounded-full border border-r-5 border-b-5 bg-[#f3f5f7]"
+          onClick={() => document.getElementById("capture-photo")?.click()}
         />
         <MainButton
           icon={<PiTranslateThin className="w-6 h-6" />}
-          className="w-15 p-3 h-full rounded-full mr-3 border border-r-5 border-b-5 bg-[#f3f5f7] hover:bg-gray-100 transition-all duration-200"
+          title="Translate Text"
+          className="w-15 p-3 h-full rounded-full border border-r-5 border-b-5 bg-[#f3f5f7]"
           onClick={() =>
             fetchTranslateText(extractedText, languageFrom, languageTo)
           }
         />
       </div>
+
       {(allLanguage.length > 0 || loading) && (
         <div className="mt-2 px-4 z-20">
           {loading ? (
