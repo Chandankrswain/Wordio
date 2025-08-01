@@ -105,7 +105,7 @@ const VoiceToTextTranslate = () => {
             </div>
           </div>
           <p className="text-xl p-4 leading-12 overflow-auto ml-5 h-44 text-black">
-            {transcript || "Speak something..."}
+            {isListening ? "Listening..." : transcript || "Speak something..."}
           </p>
         </div>
 
