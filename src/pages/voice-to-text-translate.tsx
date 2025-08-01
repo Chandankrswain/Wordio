@@ -59,7 +59,6 @@ const VoiceToTextTranslate = () => {
     } else {
       setIsListening(true);
       SpeechRecognition.startListening({
-        continuous: true,
         language: "hi-IN",
       });
     }
@@ -134,7 +133,7 @@ const VoiceToTextTranslate = () => {
           icon={
             <PiMicrophoneThin className="w-10 h-10 m-2 cursor-pointer z-10 p-1" />
           }
-          title="Start Speaking"
+          title={isListening ? "Stop Listening" : "Start Listening"}
           onClick={startListening}
         />
       </div>
