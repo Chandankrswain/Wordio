@@ -19,8 +19,8 @@ interface LanguageDataType {
 const TextToTextTranslate = () => {
   const [allLanguage, setAllLanguages] = useState<LanguageDataType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [languageTo, setLanguageTo] = useState("hi-IN");
-  const [languageFrom, setLanguageFrom] = useState("en-IN");
+  const [languageTo, setLanguageTo] = useState("hi");
+  const [languageFrom, setLanguageFrom] = useState("en");
   const [isSelectingTo, setIsSelectingTo] = useState<boolean>(true);
   const [textBoxContent, setTextBoxContent] = useState("");
   const [translatedText, setTranslatedText] = useState("");
