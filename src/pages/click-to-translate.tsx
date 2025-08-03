@@ -30,6 +30,8 @@ const ClickToTextTranslate = () => {
     }
   };
 
+  console.log("Image:", image);
+
   const fetchLanguage = async () => {
     setLoading(true);
     try {

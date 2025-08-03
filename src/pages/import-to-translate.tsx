@@ -5,6 +5,7 @@ import Header from "../components/header";
 import MainButton from "../components/main-button";
 import { LanguageData, TranslateData } from "../utils/api";
 import DotDotLoading from "../components/dot-loading";
+import DropBox from "../components/drop-box";
 
 interface LanguageDataType {
   name: string;
@@ -101,46 +102,60 @@ const ImportToTextTranslate = () => {
   };
 
   return (
-    <div className="flex flex-col md:w-[40%] mx-auto h-screen overflow-y-auto bg-yellow-200 relative">
+    <div className="flex flex-col md:w-[40%] mx-auto h-screen overflow-y-auto bg-yellow-200 relative ">
       <Header
         icon={<PiFileTextThin className="w-7 h-7 m-2 cursor-pointer z-10" />}
         text="Import Translate"
       />
+      <div>
+        <input
+          id="file-upload"
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+          className="hidden"
+        />
 
-      <input
-        id="file-upload"
-        type="file"
-        accept="image/*"
-        onChange={handleImageUpload}
-        className="hidden"
-      />
+        {/* Upload Status Toast */}
+        {uploadStatus !== "idle" && (
+          <div className="absolute bottom-4 right-4 bg-black text-white px-4 py-2 rounded-lg shadow-lg">
+            {uploadStatus === "uploading" ? "📤 Uploading..." : "✅ Uploaded!"}
+          </div>
+        )}
 
-      {/* Upload Status Toast */}
-      {uploadStatus !== "idle" && (
-        <div className="absolute bottom-4 right-4 bg-black text-white px-4 py-2 rounded-lg shadow-lg">
-          {uploadStatus === "uploading" ? "📤 Uploading..." : "✅ Uploaded!"}
-        </div>
-      )}
+        <DropBox file={image} setFile={setImage} />
 
-      {/* Buttons */}
-      <div className="flex flex-wrap w-full justify-center gap-2">
         <MainButton
           onClick={extractText}
           className="rounded-4xl border border-r-5 border-b-5 bg-[#f3f5f7]"
           label={"Extract"}
-          title="Extract Text Here"
         />
+
+        {/* OCR Loading */}
+        {loading && (
+          <div className=" inset-0 flex items-center justify-center bg-opacity-30 z-30">
+            <DotDotLoading />
+          </div>
+        )}
+        <div className="flex items-end items-center justify-center">
+          <div className="flex flex-col w-full p-5">
+            <p className="font-display text-3xl font-bold  bg-[#f3f5f7] px-4 w-[90%] rounded-tr-3xl">
+              Extracted Text
+            </p>
+            <p className="text-gray-900 w-full font-thin text-sm overflow-y-auto leading-6 h-40 p-5 hide-scrollbar rounded-tr-3xl   bg-yellow-100">
+              {extractedText}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Buttons */}
+      <div className="flex flex-wrap w-full justify-center mt-2 gap-2 ">
         <MainButton
           label={selectedLanguageTo || "Change to"}
-          className="h-full rounded-4xl border border-r-5 border-b-5 bg-[#f3f5f7]"
+          className="h-full rounded-4xl border border-r-5 border-b-5 bg-[#f3f5f7]  "
           onClick={handleClick}
           title="Change Language"
-        />
-        <MainButton
-          icon={<PiFileTextThin className="w-6 h-6" />}
-          title="Upload Your File"
-          className="w-15 p-3 h-full rounded-full border border-r-5 border-b-5 bg-[#f3f5f7]"
-          onClick={() => document.getElementById("file-upload")?.click()}
         />
         <MainButton
           icon={<PiTranslateThin className="w-6 h-6" />}
@@ -150,78 +165,54 @@ const ImportToTextTranslate = () => {
             fetchTranslateText(extractedText, languageFrom, languageTo)
           }
         />
-      </div>
 
-      {/* Language Dropdown */}
-      <div
-        className={`mt-2 px-4 z-20 ml-5 absolute h-[200px] w-[335px] overflow-y-auto top-50 bg-[#f3f5f7] rounded-4xl hide-scrollbar 
+        {/* Language Dropdown */}
+        <div
+          className={`mt-2 px-4 z-20 ml-5 absolute h-[200px] w-[335px] overflow-y-auto top-50 bg-[#f3f5f7] rounded-4xl hide-scrollbar 
         transition-all duration-300 ease-in-out transform 
         ${
           allLanguage.length > 0 || languageLoading
             ? "opacity-100 translate-y-0"
             : "opacity-0 -translate-y-5 pointer-events-none"
         }`}
-      >
-        {languageLoading ? (
-          <div className="flex justify-center items-center h-full">
+        >
+          {languageLoading ? (
+            <div className="flex justify-center items-center h-full">
+              <DotDotLoading />
+            </div>
+          ) : (
+            allLanguage.map((lang, index) => (
+              <button
+                key={index}
+                className="py-1 px-3 hover:bg-amber-200 rounded mb-1 text-center w-full text-lg"
+                onClick={() => handleLanguageSelect(lang.code, lang.name)}
+              >
+                {lang.name}
+              </button>
+            ))
+          )}
+        </div>
+
+        {/* Translation Loading or Result */}
+        {translateLoading ? (
+          <div className="flex justify-center items-center mt-6">
             <DotDotLoading />
           </div>
         ) : (
-          allLanguage.map((lang, index) => (
-            <button
-              key={index}
-              className="py-1 px-3 hover:bg-amber-200 rounded mb-1 text-center w-full text-lg"
-              onClick={() => handleLanguageSelect(lang.code, lang.name)}
-            >
-              {lang.name}
-            </button>
-          ))
+          translatedText && (
+            <div className="flex items-end items-center justify-center">
+              <div className="flex flex-col w-full p-5">
+                <p className="font-display text-3xl font-bold  bg-[#f3f5f7] px-4 w-[90%] rounded-tr-3xl">
+                  Translated Text
+                </p>
+                <p className="text-gray-900 w-full font-thin text-sm overflow-y-auto leading-6 h-40 p-5 hide-scrollbar rounded-tr-3xl  bg-yellow-100">
+                  {translatedText}
+                </p>
+              </div>
+            </div>
+          )
         )}
       </div>
-
-      {/* OCR Loading */}
-      {loading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-opacity-30 z-30">
-          <DotDotLoading />
-        </div>
-      )}
-
-      <div className="flex items-end items-center justify-center pl-10 pb-2 pt-2 bg-[#f3f5f7] rounded-tl-[120px] mt-5">
-        <div className="flex flex-col items-center mb-10">
-          {image && !loading && (
-            <div>
-              <img
-                src={URL.createObjectURL(image)}
-                alt="Captured"
-                className="w-20 h-24 rounded border blur-[3px]"
-              />
-            </div>
-          )}
-          <p>File</p>
-        </div>
-
-        <div className="flex flex-col w-full p-5">
-          <p className="font-display text-3xl font-bold mb-3">Extracted Text</p>
-          {extractedText && !loading && (
-            <p className="text-gray-900 w-full font-thin text-sm leading-6 overflow-y-auto h-40 pr-4 hide-scrollbar">
-              {extractedText}
-            </p>
-          )}
-        </div>
-      </div>
-
-      {/* Translation Loading or Result */}
-      {translateLoading ? (
-        <div className="flex justify-center items-center mt-6">
-          <DotDotLoading />
-        </div>
-      ) : (
-        translatedText && (
-          <div className="text-gray-900 p-8 w-full absolute bottom-40 bg-yellow-100 rounded-tl-[120px]">
-            {translatedText}
-          </div>
-        )
-      )}
     </div>
   );
 };
