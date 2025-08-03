@@ -22,10 +22,7 @@ const ClickToTextTranslate = () => {
   const [translatedText, setTranslatedText] = useState("");
   const [loading, setLoading] = useState(false);
   const [languageLoading] = useState(false); // Language dropdown loading
-  const [translateLoading] = useState(false); // Translation loading
-  const [uploadStatus, setUploadStatus] = useState<
-    "idle" | "uploading" | "uploaded"
-  >("idle");
+  const [translateLoading, setTranslateLoading] = useState(false); // Translation loading
 
   const languageService = new LanguageData();
   const translator = new TranslateData();
@@ -69,6 +66,7 @@ const ClickToTextTranslate = () => {
     fromLanguage: string,
     toLanguage: string
   ) => {
+    setTranslateLoading(true);
     try {
       const result = await translator.postTranslate(
         extractedText,
@@ -78,6 +76,8 @@ const ClickToTextTranslate = () => {
       setTranslatedText(result.responseData.translatedText);
     } catch (error) {
       console.error("Translation failed:", error);
+    } finally {
+      setTranslateLoading(false);
     }
   };
 
