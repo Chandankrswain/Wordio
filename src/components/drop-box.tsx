@@ -77,7 +77,7 @@ const DropBox = ({
           </label>
         ) : (
           <div className="w-full h-full flex items-center justify-between px-6">
-            <div className="flex items-center">
+            <div className="flex items-center overflow-hidden ">
               <span className="text-lg font-medium">{file.name}</span>
             </div>
             <button

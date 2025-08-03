@@ -21,6 +21,11 @@ const ClickToTextTranslate = () => {
   const [extractedText, setExtractedText] = useState("");
   const [translatedText, setTranslatedText] = useState("");
   const [loading, setLoading] = useState(false);
+  const [languageLoading] = useState(false); // Language dropdown loading
+  const [translateLoading] = useState(false); // Translation loading
+  const [uploadStatus, setUploadStatus] = useState<
+    "idle" | "uploading" | "uploaded"
+  >("idle");
 
   const languageService = new LanguageData();
   const translator = new TranslateData();
@@ -92,45 +97,53 @@ const ClickToTextTranslate = () => {
         icon={<PiScanThin className="w-7 h-7 m-2 cursor-pointer z-10" />}
         text="Import Translate"
       />
+      <div>
+        <input
+          id="capture-photo"
+          type="file"
+          accept="image/*"
+          capture="environment"
+          onChange={handleCapture}
+          className="hidden"
+        />
 
-      <input
-        id="capture-photo"
-        type="file"
-        accept="image/*"
-        capture="environment"
-        onChange={handleCapture}
-        className="hidden"
-      />
+        {/* Upload Status Toast */}
+        {uploadStatus !== "idle" && (
+          <div className="absolute bottom-4 right-4 bg-black text-white px-4 py-2 rounded-lg shadow-lg">
+            {uploadStatus === "uploading" ? "📤 Uploading..." : "✅ Uploaded!"}
+          </div>
+        )}
 
-      <DropBox
-        file={image}
-        setFile={setImage}
-        innertext="Capture the photo"
-        innersubtext="Click to open camera or upload an image"
-        icon={<PiCameraThin className="w-8 h-8" />}
-        onClick={() => document.getElementById("capture-photo")?.click()}
-      />
+        <DropBox
+          file={image}
+          setFile={setImage}
+          innertext="Capture the photo"
+          innersubtext="Click to open camera or upload an image"
+          icon={<PiCameraThin className="w-8 h-8" />}
+          onClick={() => document.getElementById("capture-photo")?.click()}
+        />
 
-      <MainButton
-        onClick={extractText}
-        className="rounded-4xl border border-r-5 border-b-5 bg-[#f3f5f7]"
-        label={"Extract"}
-      />
+        <MainButton
+          onClick={extractText}
+          className="rounded-4xl border border-r-5 border-b-5 bg-[#f3f5f7]"
+          label={"Extract"}
+        />
 
-      {/* OCR Loading */}
-      {loading && (
-        <div className=" inset-0 flex items-center justify-center bg-opacity-30 z-30">
-          <DotDotLoading />
-        </div>
-      )}
-      <div className="flex items-end items-center justify-center">
-        <div className="flex flex-col w-full p-5">
-          <p className="font-display text-3xl font-bold  bg-[#f3f5f7] px-4 w-[90%] rounded-tr-3xl">
-            Extracted Text
-          </p>
-          <p className="text-gray-900 w-full font-thin text-sm overflow-y-auto leading-6 h-40 p-5 hide-scrollbar rounded-tr-3xl   bg-yellow-100">
-            {extractedText}
-          </p>
+        {/* OCR Loading */}
+        {loading && (
+          <div className=" inset-0 flex items-center justify-center bg-opacity-30 z-30">
+            <DotDotLoading />
+          </div>
+        )}
+        <div className="flex items-end items-center justify-center">
+          <div className="flex flex-col w-full p-5">
+            <p className="font-display text-3xl font-bold  bg-[#f3f5f7] px-4 w-[90%] rounded-tr-3xl">
+              Extracted Text
+            </p>
+            <p className="text-gray-900 w-full font-thin text-sm overflow-y-auto leading-6 h-40 p-5 hide-scrollbar rounded-tr-3xl   bg-yellow-100">
+              {extractedText}
+            </p>
+          </div>
         </div>
       </div>
 
@@ -149,17 +162,25 @@ const ClickToTextTranslate = () => {
             fetchTranslateText(extractedText, languageFrom, languageTo)
           }
         />
-      </div>
 
-      {(allLanguage.length > 0 || loading) && (
-        <div className="mt-2 px-4 z-20">
-          {loading ? (
-            <p className="text-sm text-gray-700">Loading languages...</p>
+        <div
+          className={`mt-2 px-4 z-20 ml-2 absolute h-[200px] w-[335px] overflow-y-auto bottom-30 bg-[#f3f5f7] rounded-4xl hide-scrollbar 
+        transition-all duration-300 ease-in-out transform 
+        ${
+          allLanguage.length > 0 || languageLoading
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 -translate-y-5 pointer-events-none"
+        }`}
+        >
+          {languageLoading ? (
+            <div className="flex justify-center items-center h-full">
+              <DotDotLoading />
+            </div>
           ) : (
             allLanguage.map((lang, index) => (
               <button
                 key={index}
-                className="py-1 px-3 bg-white hover:bg-gray-100 rounded mb-1 text-left w-full "
+                className="py-1 px-3 hover:bg-amber-200 rounded mb-1 text-center w-full text-lg"
                 onClick={() => handleLanguageSelect(lang.code, lang.name)}
               >
                 {lang.name}
@@ -167,23 +188,26 @@ const ClickToTextTranslate = () => {
             ))
           )}
         </div>
-      )}
-      {image && (
-        <div>
-          <img
-            src={URL.createObjectURL(image)}
-            alt="Captured"
-            className="w-16 h-24 mt-2 rounded border "
-          />
-        </div>
-      )}
-      {loading && <p className="mt-2">Extracting text...</p>}
-      {extractedText && (
-        <p className="text-gray-900 p-8 w-fulltop-70">{extractedText}</p>
-      )}
-      {translatedText && (
-        <div className="text-gray-900 p-8 w-fulltop-70">{translatedText}</div>
-      )}
+
+        {translateLoading ? (
+          <div className="flex justify-center items-center mt-6">
+            <DotDotLoading />
+          </div>
+        ) : (
+          translatedText && (
+            <div className="flex items-end items-center justify-center">
+              <div className="flex flex-col w-full p-5">
+                <p className="font-display text-3xl font-bold  bg-[#f3f5f7] px-4 w-[90%] rounded-tr-3xl">
+                  Translated Text
+                </p>
+                <p className="text-gray-900 w-full font-thin text-sm overflow-y-auto leading-6 h-40 p-5 hide-scrollbar rounded-tr-3xl rounded-bl-3xl bg-yellow-100">
+                  {translatedText}
+                </p>
+              </div>
+            </div>
+          )
+        )}
+      </div>
     </div>
   );
 };
