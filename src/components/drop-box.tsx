@@ -16,6 +16,7 @@ const DropBox = ({
   innertext,
   innersubtext,
   icon,
+  onClick,
 }: DropBoxProps) => {
   const [isDragging, setIsDragging] = useState(false);
 
@@ -45,11 +46,12 @@ const DropBox = ({
   const handleRemoveFile = () => setFile(null);
 
   return (
-    <div className="flex flex-col items-center justify-center mb-4 w-full">
+    <div className="flex flex-col items-center justify-center mb-4 w-full ">
       <div
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
+        onClick={onClick}
         className={`w-[90%] h-48 flex flex-col items-center justify-center border-2 ${
           file
             ? "border-gray-400 border-solid"

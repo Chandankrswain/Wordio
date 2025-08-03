@@ -107,13 +107,6 @@ const ClickToTextTranslate = () => {
           className="hidden"
         />
 
-        {/* Upload Status Toast */}
-        {uploadStatus !== "idle" && (
-          <div className="absolute bottom-4 right-4 bg-black text-white px-4 py-2 rounded-lg shadow-lg">
-            {uploadStatus === "uploading" ? "📤 Uploading..." : "✅ Uploaded!"}
-          </div>
-        )}
-
         <DropBox
           file={image}
           setFile={setImage}
