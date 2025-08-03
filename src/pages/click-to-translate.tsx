@@ -108,6 +108,7 @@ const ClickToTextTranslate = () => {
         innertext="Capture the photo"
         innersubtext="Click to open camera or upload an image"
         icon={<PiCameraThin className="w-8 h-8" />}
+        onClick={() => document.getElementById("capture-photo")?.click()}
       />
 
       <MainButton
@@ -139,12 +140,6 @@ const ClickToTextTranslate = () => {
           className="h-full rounded-4xl border border-r-5 border-b-5 bg-[#f3f5f7]"
           onClick={handleClick}
           title="Change Language"
-        />
-        <MainButton
-          icon={<PiCameraThin className="w-6 h-6" />}
-          title="Open Camera"
-          className="w-15 p-3 h-full rounded-full border border-r-5 border-b-5 bg-[#f3f5f7]"
-          onClick={() => document.getElementById("capture-photo")?.click()}
         />
         <MainButton
           icon={<PiTranslateThin className="w-6 h-6" />}

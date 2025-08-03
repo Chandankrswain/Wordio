@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PiDownloadSimpleThin, PiTrashFill } from "react-icons/pi";
+import { PiTrashFill } from "react-icons/pi";
 
 interface DropBoxProps {
   file: File | null;
@@ -7,6 +7,7 @@ interface DropBoxProps {
   innertext?: string;
   innersubtext?: string;
   icon?: React.ReactNode;
+  onClick?: () => void;
 }
 
 const DropBox = ({
