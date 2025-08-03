@@ -137,13 +137,12 @@ const ImportToTextTranslate = () => {
             <DotDotLoading />
           </div>
         )}
-
         <div className="flex items-end items-center justify-center">
           <div className="flex flex-col w-full p-5">
             <p className="font-display text-3xl font-bold  bg-[#f3f5f7] px-4 w-[90%] rounded-tr-3xl">
               Extracted Text
             </p>
-            <p className="text-gray-900 w-full font-thin text-sm overflow-y-auto leading-6 h-40 p-5 hide-scrollbar rounded-tr-3xl  bg-yellow-100">
+            <p className="text-gray-900 w-full font-thin text-sm overflow-y-auto leading-6 h-40 p-5 hide-scrollbar rounded-tr-3xl rounded-br-3xl rounded-bl-3xl bg-yellow-100">
               {extractedText}
             </p>
           </div>
@@ -169,15 +168,15 @@ const ImportToTextTranslate = () => {
 
         {/* Language Dropdown */}
         <div
-          className={`absolute h-[85%] w-[340px] overflow-y-auto top-2 left-3 z-50 bottom-30 bg-[#f3f5f7] rounded-4xl hide-scrollbar 
-    transition-all duration-300 ease-in-out transform 
-    ${
-      allLanguage.length > 0 || loading
-        ? "opacity-100 translate-y-0"
-        : "opacity-0 translate-y-5 pointer-events-none"
-    }`}
+          className={`mt-2 px-4 z-20 ml-5 absolute h-[200px] w-[335px] overflow-y-auto top-50 bg-[#f3f5f7] rounded-4xl hide-scrollbar 
+        transition-all duration-300 ease-in-out transform 
+        ${
+          allLanguage.length > 0 || languageLoading
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 -translate-y-5 pointer-events-none"
+        }`}
         >
-          {loading ? (
+          {languageLoading ? (
             <div className="flex justify-center items-center h-full">
               <DotDotLoading />
             </div>
@@ -206,7 +205,7 @@ const ImportToTextTranslate = () => {
                 <p className="font-display text-3xl font-bold  bg-[#f3f5f7] px-4 w-[90%] rounded-tr-3xl">
                   Translated Text
                 </p>
-                <p className="text-gray-900 w-full font-thin text-sm overflow-y-auto leading-6 h-40 p-5 hide-scrollbar rounded-tr-3xl  bg-yellow-100">
+                <p className="text-gray-900 w-full font-thin text-sm overflow-y-auto leading-6 h-40 p-5 hide-scrollbar rounded-tr-3xl rounded-bl-3xl bg-yellow-100">
                   {translatedText}
                 </p>
               </div>

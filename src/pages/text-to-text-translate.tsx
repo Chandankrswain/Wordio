@@ -176,7 +176,7 @@ const TextToTextTranslate = () => {
       </div>
 
       <div
-        className={`absolute h-[85%] w-[340px] overflow-y-auto top-2 left-3 z-50 bottom-30 bg-[#f3f5f7] rounded-4xl hide-scrollbar 
+        className={`mt-2 px-4 z-20 ml-4 absolute h-[200px] w-[335px] overflow-y-auto bottom-30 bg-[#f3f5f7] rounded-4xl hide-scrollbar 
     transition-all duration-300 ease-in-out transform 
     ${
       allLanguage.length > 0 || isLoading
