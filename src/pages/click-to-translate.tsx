@@ -102,7 +102,13 @@ const ClickToTextTranslate = () => {
         className="hidden"
       />
 
-      <DropBox file={image} setFile={setImage} />
+      <DropBox
+        file={image}
+        setFile={setImage}
+        innertext="Capture the photo"
+        innersubtext="Click to open camera or upload an image"
+        icon={<PiCameraThin className="w-8 h-8" />}
+      />
 
       <MainButton
         onClick={extractText}

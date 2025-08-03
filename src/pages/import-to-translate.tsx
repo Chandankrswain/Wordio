@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { PiFileTextThin, PiTranslateThin } from "react-icons/pi";
+import {
+  PiDownload,
+  PiDownloadSimpleThin,
+  PiDownloadThin,
+  PiFileTextThin,
+  PiTranslateThin,
+} from "react-icons/pi";
 import Tesseract from "tesseract.js";
 import Header from "../components/header";
 import MainButton from "../components/main-button";
@@ -123,7 +129,13 @@ const ImportToTextTranslate = () => {
           </div>
         )}
 
-        <DropBox file={image} setFile={setImage} />
+        <DropBox
+          file={image}
+          setFile={setImage}
+          innertext="Drag & drop your file here"
+          innersubtext="or click to upload"
+          icon={<PiDownloadSimpleThin className="w-8 h-8" />}
+        />
 
         <MainButton
           onClick={extractText}
@@ -168,7 +180,7 @@ const ImportToTextTranslate = () => {
 
         {/* Language Dropdown */}
         <div
-          className={`mt-2 px-4 z-20 ml-5 absolute h-[200px] w-[335px] overflow-y-auto top-50 bg-[#f3f5f7] rounded-4xl hide-scrollbar 
+          className={`mt-2 px-4 z-20 ml-2 absolute h-[200px] w-[335px] overflow-y-auto bottom-30 bg-[#f3f5f7] rounded-4xl hide-scrollbar 
         transition-all duration-300 ease-in-out transform 
         ${
           allLanguage.length > 0 || languageLoading

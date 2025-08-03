@@ -4,9 +4,18 @@ import { PiDownloadSimpleThin, PiTrashFill } from "react-icons/pi";
 interface DropBoxProps {
   file: File | null;
   setFile: (file: File | null) => void;
+  innertext?: string;
+  innersubtext?: string;
+  icon?: React.ReactNode;
 }
 
-const DropBox = ({ file, setFile }: DropBoxProps) => {
+const DropBox = ({
+  file,
+  setFile,
+  innertext,
+  innersubtext,
+  icon,
+}: DropBoxProps) => {
   const [isDragging, setIsDragging] = useState(false);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,10 +68,10 @@ const DropBox = ({ file, setFile }: DropBoxProps) => {
 
         {!file ? (
           <label htmlFor="file-upload" className="text-gray-500 cursor-pointer">
-            <div className="text-center">
-              <PiDownloadSimpleThin className="w-10 h-10 mx-auto mb-2" />
-              <p className="text-lg">Drag & drop your file here</p>
-              <p className="text-sm text-gray-400">or click to upload</p>
+            <div className="flex flex-col items-center ">
+              {icon}
+              <p className="text-lg">{innertext}</p>
+              <p className="text-sm text-gray-400">{innersubtext}</p>
             </div>
           </label>
         ) : (
