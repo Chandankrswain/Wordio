@@ -4,6 +4,8 @@ import { PiCameraThin, PiScanThin, PiTranslateThin } from "react-icons/pi";
 import MainButton from "../components/main-button";
 import { LanguageData, TranslateData } from "../utils/api";
 import Tesseract from "tesseract.js";
+import DropBox from "../components/drop-box";
+import DotDotLoading from "../components/dot-loading";
 
 interface LanguageDataType {
   name: string;
@@ -100,13 +102,32 @@ const ClickToTextTranslate = () => {
         className="hidden"
       />
 
+      <DropBox file={image} setFile={setImage} />
+
+      <MainButton
+        onClick={extractText}
+        className="rounded-4xl border border-r-5 border-b-5 bg-[#f3f5f7]"
+        label={"Extract"}
+      />
+
+      {/* OCR Loading */}
+      {loading && (
+        <div className=" inset-0 flex items-center justify-center bg-opacity-30 z-30">
+          <DotDotLoading />
+        </div>
+      )}
+      <div className="flex items-end items-center justify-center">
+        <div className="flex flex-col w-full p-5">
+          <p className="font-display text-3xl font-bold  bg-[#f3f5f7] px-4 w-[90%] rounded-tr-3xl">
+            Extracted Text
+          </p>
+          <p className="text-gray-900 w-full font-thin text-sm overflow-y-auto leading-6 h-40 p-5 hide-scrollbar rounded-tr-3xl   bg-yellow-100">
+            {extractedText}
+          </p>
+        </div>
+      </div>
+
       <div className="flex flex-wrap w-full justify-center gap-2">
-        <MainButton
-          onClick={extractText}
-          className="rounded-4xl border border-r-5 border-b-5 bg-[#f3f5f7]"
-          label={"Extract"}
-          title="Extract Text Here"
-        />
         <MainButton
           label={selectedLanguageTo || "Change to"}
           className="h-full rounded-4xl border border-r-5 border-b-5 bg-[#f3f5f7]"

@@ -114,10 +114,13 @@ const VoiceToTextTranslate = () => {
               <PiSoundcloudLogoThin className="w-8 h-8 ml-8" />
               <p className="ml-3">English</p>
             </div>
-            <PiCopySimpleThin
-              className="w-5 h-5"
-              onClick={handleCopyToClipboard}
-            />
+            <div className="flex items-center space-x-3">
+              <PiCopySimpleThin
+                className="w-5 h-5"
+                onClick={handleCopyToClipboard}
+              />
+              <PiArrowCounterClockwiseThin onClick={resetTranscript} />
+            </div>
           </div>
           <p className="text-xl p-4 leading-12 overflow-auto ml-5 h-44 text-black">
             {translatedText || "Translation..."}

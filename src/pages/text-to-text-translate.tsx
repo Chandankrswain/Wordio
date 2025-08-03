@@ -1,5 +1,6 @@
 import TextBox from "../components/text-box";
 import {
+  PiArrowCounterClockwiseThin,
   PiCopySimpleThin,
   PiSoundcloudLogoThin,
   PiSwapThin,
@@ -117,6 +118,11 @@ const TextToTextTranslate = () => {
     setTranslatedText(textBoxContent);
   };
 
+  const resetTextBox = () => {
+    setTextBoxContent("");
+    setTranslatedText("");
+  };
+
   return (
     <div className="flex flex-col md:w-[40%] mx-auto h-screen overflow-y-auto bg-yellow-200 justify-between">
       <div>
@@ -133,10 +139,13 @@ const TextToTextTranslate = () => {
               <PiSoundcloudLogoThin className="w-8 h-8 ml-8" />
               <p className="ml-3">{selectedLanguageFrom}</p>
             </div>
-            <PiCopySimpleThin
-              className="w-5 h-5"
-              onClick={handleCopyToClipboard}
-            />
+            <div className="flex items-center space-x-3">
+              <PiCopySimpleThin
+                className="w-5 h-5"
+                onClick={handleCopyToClipboard}
+              />
+              <PiArrowCounterClockwiseThin onClick={resetTextBox} />
+            </div>
           </div>
           <TextBox
             placeholder="Enter the text here"
@@ -152,10 +161,13 @@ const TextToTextTranslate = () => {
               <PiSoundcloudLogoThin className="w-8 h-8 ml-8" />
               <p className="ml-3">{selectedLanguageTo}</p>
             </div>
-            <PiCopySimpleThin
-              className="w-5 h-5"
-              onClick={handleCopyToClipboard}
-            />
+            <div className="flex items-center space-x-3">
+              <PiCopySimpleThin
+                className="w-5 h-5"
+                onClick={handleCopyToClipboard}
+              />
+              <PiArrowCounterClockwiseThin onClick={resetTextBox} />
+            </div>
           </div>
           <p className="text-2xl p-4 leading-12 overflow-auto ml-5 h-54 text-black">
             {translatedText || "Translation..."}
@@ -164,7 +176,7 @@ const TextToTextTranslate = () => {
       </div>
 
       <div
-        className={`mt-2 px-4 z-20 ml-5 absolute h-[200px] w-[335px] overflow-y-auto bottom-20 bg-[#f3f5f7] rounded-4xl hide-scrollbar 
+        className={`absolute h-[85%] w-[340px] overflow-y-auto top-2 left-3 z-50 bottom-30 bg-[#f3f5f7] rounded-4xl hide-scrollbar 
     transition-all duration-300 ease-in-out transform 
     ${
       allLanguage.length > 0 || isLoading
