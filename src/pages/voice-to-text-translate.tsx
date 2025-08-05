@@ -125,7 +125,7 @@ const VoiceToTextTranslate = () => {
         </div>
       </div>
 
-      <p className="text-center text-xs mb-3 text-gray-600 z-40 ">
+      <p className="text-center text-[11px] mb-3 text-gray-600 z-40 ">
         Note : This Features only works in Google Chrome Browser (PC)
       </p>
       <div className="flex flex-col items-center justify-center mb-2 z-40">
