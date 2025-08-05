@@ -1,8 +1,6 @@
 import { useState } from "react";
 import {
-  PiDownload,
   PiDownloadSimpleThin,
-  PiDownloadThin,
   PiFileTextThin,
   PiTranslateThin,
 } from "react-icons/pi";
