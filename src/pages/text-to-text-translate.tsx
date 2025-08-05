@@ -93,10 +93,10 @@ const TextToTextTranslate = () => {
     setTextBoxContent(e.target.value);
   };
 
-  const handleCopyToClipboard = () => {
-    if (translatedText || textBoxContent) {
+  const handleCopyToClipboard = (text: string) => {
+    if (text) {
       navigator.clipboard
-        .writeText(translatedText || textBoxContent)
+        .writeText(text)
         .then(() => {
           alert("Translation copied to clipboard!");
         })
@@ -143,7 +143,7 @@ const TextToTextTranslate = () => {
             <div className="flex items-center space-x-3">
               <PiCopySimpleThin
                 className="w-5 h-5"
-                onClick={handleCopyToClipboard}
+                onClick={() => handleCopyToClipboard(textBoxContent)}
               />
               <PiArrowCounterClockwiseThin onClick={resetTextBox} />
             </div>
@@ -165,7 +165,7 @@ const TextToTextTranslate = () => {
             <div className="flex items-center space-x-3">
               <PiCopySimpleThin
                 className="w-5 h-5"
-                onClick={handleCopyToClipboard}
+                onClick={() => handleCopyToClipboard(translatedText)}
               />
               <PiArrowCounterClockwiseThin onClick={resetTextBox} />
             </div>
