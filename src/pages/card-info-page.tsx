@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import { PiSpeakerSimpleHighLight } from "react-icons/pi";
 import logo from "../assets/logo.png";
 import InnerCard from "../components/inner-card";
+import DotDotLoading from "../components/dot-loading";
 
 interface WordInfo {
   word: string;
@@ -61,8 +62,8 @@ const InfoCard = () => {
         className="w-44 h-10 ml-2 mt-6"
         onClick={handleClick}
       />
-      {isLoading && <p>Loading...</p>}
-      {wordInfo ? (
+      {isLoading && <DotDotLoading />}
+      {wordInfo && !isLoading ? (
         <div className="flex flex-col mt-20 p-4 ">
           <p className="text-xs ml-1 leading-0 font-light font-[#a7abaf]">
             VERB
@@ -79,7 +80,7 @@ const InfoCard = () => {
           <InnerCard wordMeaning={wordInfo} />
         </div>
       ) : (
-        "No word found!"
+        ""
       )}
     </div>
   );

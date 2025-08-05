@@ -6,6 +6,7 @@ import { LanguageData, TranslateData } from "../utils/api";
 import Tesseract from "tesseract.js";
 import DropBox from "../components/drop-box";
 import DotDotLoading from "../components/dot-loading";
+import { TfiClose } from "react-icons/tfi";
 
 interface LanguageDataType {
   name: string;
@@ -157,7 +158,7 @@ const ClickToTextTranslate = () => {
         />
 
         <div
-          className={`mt-2 px-4 z-20 ml-2 absolute h-[200px] w-[335px] overflow-y-auto bottom-30 bg-[#f3f5f7] rounded-4xl hide-scrollbar 
+          className={`mt-2 px-4 z-20 border ml-2 absolute h-[200px] w-[335px] overflow-y-auto bottom-30 bg-[#f3f5f7] rounded-4xl hide-scrollbar 
         transition-all duration-300 ease-in-out transform 
         ${
           allLanguage.length > 0 || languageLoading
@@ -165,6 +166,10 @@ const ClickToTextTranslate = () => {
             : "opacity-0 -translate-y-5 pointer-events-none"
         }`}
         >
+          <TfiClose
+            className="absolute w-10 h-10 right-2 border rounded-4xl top-2 p-2 z-40"
+            onClick={() => setAllLanguages([])}
+          />
           {languageLoading ? (
             <div className="flex justify-center items-center h-full">
               <DotDotLoading />
