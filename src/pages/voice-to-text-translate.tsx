@@ -22,18 +22,23 @@ const VoiceToTextTranslate = () => {
     const Recognition =
       (window as any).SpeechRecognition ||
       (window as any).webkitSpeechRecognition;
+
+    if (!Recognition) {
+      alert("Speech recognition is not supported on this device/browser.");
+      return;
+    }
+
     const recognition = new Recognition();
-    recognition.lang = "hi";
-    recognition.continuous = true;
+    recognition.lang = "hi-IN"; // Hindi (India)
+    recognition.continuous = false; // Mobile-friendly (restart manually)
     recognition.interimResults = true;
 
     recognition.onresult = (event: SpeechRecognitionEvent) => {
-      let liveTranscript = "";
-      for (let i = 0; i < event.results.length; i++) {
-        liveTranscript += event.results[i][0].transcript + " ";
-      }
-      setTranscriptedText(liveTranscript.trim());
-      fetchTranslateText(liveTranscript.trim(), "hi", "en");
+      const transcript = event.results[event.results.length - 1][0].transcript;
+      setTranscriptedText(transcript.trim());
+
+      // Convert Hinglish → Hindi Script, then Hindi → English
+      fetchTranslateText(transcript.trim(), "hi", "en");
     };
 
     recognition.onerror = (event: any) => {
@@ -42,24 +47,27 @@ const VoiceToTextTranslate = () => {
     };
 
     recognition.onend = () => {
-      // Automatically stop listening state when session ends
-      console.log("Speech recognition ended");
-      setIsListening(false);
+      console.log("Recognition ended");
+      if (isListening) {
+        recognition.start(); // Restart listening for continuous effect
+      }
     };
 
     recognitionRef.current = recognition;
 
+    // Request mic permission
     navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then(() => console.log("Mic permission granted"))
       .catch(() => alert("Please enable microphone access"));
-  }, []);
+  }, [isListening]);
 
   const startListening = () => {
     if (!recognitionRef.current) return;
 
     if (isListening) {
       recognitionRef.current.stop();
+      setIsListening(false);
     } else {
       recognitionRef.current.start();
       setIsListening(true);
@@ -73,8 +81,17 @@ const VoiceToTextTranslate = () => {
   ) => {
     if (!text.trim()) return;
     try {
-      const result = await translator.postTranslate(text, fromLang, toLang);
-      setTranslatedText(result.responseData.translatedText);
+      // Step 1: Convert Hinglish to Hindi script
+      const hindiResult = await translator.postTranslate(text, "hi", "hi");
+
+      // Step 2: Convert Hindi script to English
+      const englishResult = await translator.postTranslate(
+        hindiResult.responseData.translatedText,
+        fromLang,
+        toLang
+      );
+
+      setTranslatedText(englishResult.responseData.translatedText);
     } catch (error) {
       console.error("Translation failed:", error);
     }
@@ -83,9 +100,9 @@ const VoiceToTextTranslate = () => {
   const handleCopyToClipboard = () => {
     const textToCopy = translatedText || transcriptedText;
     if (textToCopy) {
-      navigator.clipboard.writeText(textToCopy).then(() => {
-        alert("Copied to clipboard!");
-      });
+      navigator.clipboard
+        .writeText(textToCopy)
+        .then(() => alert("Copied to clipboard!"));
     }
   };
 
@@ -101,9 +118,9 @@ const VoiceToTextTranslate = () => {
         text="VoiceText Translate"
       />
 
-      <div className="flex flex-col items-center relative h-screen ">
+      <div className="flex flex-col items-center relative h-screen">
         {/* Original Speech Box */}
-        <div className=" text-gray-900 p-8 w-full h-[350px] bg-[#f3f5f7] rounded-tl-[120px] ">
+        <div className="text-gray-900 p-8 w-full h-[350px] bg-[#f3f5f7] rounded-tl-[120px]">
           <div className="flex justify-between mt-4 items-center">
             <div className="flex items-center w-[60%]">
               <PiSoundcloudLogoThin className="w-8 h-8 ml-8" />
@@ -125,7 +142,7 @@ const VoiceToTextTranslate = () => {
         </div>
 
         {/* Translation Box */}
-        <div className=" text-gray-900 p-8 w-full absolute top-64 bg-yellow-200 rounded-tl-[120px] ">
+        <div className="text-gray-900 p-8 w-full absolute top-64 bg-yellow-200 rounded-tl-[120px]">
           <div className="flex justify-between mt-4 items-center">
             <div className="flex items-center w-[60%]">
               <PiSoundcloudLogoThin className="w-8 h-8 ml-8" />
@@ -145,8 +162,8 @@ const VoiceToTextTranslate = () => {
         </div>
       </div>
 
-      <p className="text-center text-xs mb-3 text-gray-600 z-40 ">
-        Note: This works best in Google Chrome.
+      <p className="text-center text-xs mb-3 text-gray-600 z-40">
+        Note: This works best in Google Chrome (Desktop & Mobile).
       </p>
       <div className="flex flex-col items-center justify-center mb-2 z-40">
         <RoundedButton
