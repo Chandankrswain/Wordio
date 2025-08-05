@@ -216,7 +216,7 @@ const ImportToTextTranslate = () => {
           </div>
         ) : (
           translatedText && (
-            <div className="flex items-end items-center justify-center">
+            <div className="flex items-end items-center justify-center w-full">
               <div className="flex flex-col w-full p-5">
                 <p className="font-display text-3xl font-bold  bg-[#f3f5f7] px-4 w-[90%] rounded-tr-3xl">
                   Translated Text
