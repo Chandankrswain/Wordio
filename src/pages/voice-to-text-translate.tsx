@@ -5,80 +5,93 @@ import {
   PiSoundcloudLogoThin,
   PiVoicemailThin,
 } from "react-icons/pi";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
 import Header from "../components/header";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { TranslateData } from "../utils/api";
 import RoundedButton from "../components/rounded-button";
 
 const VoiceToTextTranslate = () => {
   const [isListening, setIsListening] = useState(false);
+  const [transcriptedText, setTranscriptedText] = useState("");
   const [translatedText, setTranslatedText] = useState("");
-  const { transcript, browserSupportsSpeechRecognition, resetTranscript } =
-    useSpeechRecognition();
 
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
   const translator = new TranslateData();
 
   useEffect(() => {
+    const Recognition =
+      (window as any).SpeechRecognition ||
+      (window as any).webkitSpeechRecognition;
+    const recognition = new Recognition();
+    recognition.lang = "hi";
+    recognition.continuous = true;
+    recognition.interimResults = true;
+
+    recognition.onresult = (event: SpeechRecognitionEvent) => {
+      let liveTranscript = "";
+      for (let i = 0; i < event.results.length; i++) {
+        liveTranscript += event.results[i][0].transcript + " ";
+      }
+      setTranscriptedText(liveTranscript.trim());
+      fetchTranslateText(liveTranscript.trim(), "hi", "en");
+    };
+
+    recognition.onerror = (event: any) => {
+      console.error("Speech recognition error:", event.error);
+      setIsListening(false);
+    };
+
+    recognition.onend = () => {
+      // Automatically stop listening state when session ends
+      console.log("Speech recognition ended");
+      setIsListening(false);
+    };
+
+    recognitionRef.current = recognition;
+
     navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then(() => console.log("Mic permission granted"))
       .catch(() => alert("Please enable microphone access"));
   }, []);
 
-  useEffect(() => {
-    console.log("Transcript updated:", transcript);
-  }, [transcript]);
-
-  if (!browserSupportsSpeechRecognition) {
-    return <p>Your browser does not support speech recognition.</p>;
-  }
-
-  const handleCopyToClipboard = () => {
-    if (translatedText || transcript) {
-      navigator.clipboard
-        .writeText(translatedText || transcript)
-        .then(() => {
-          alert("Translation copied to clipboard!");
-        })
-        .catch((error) => {
-          console.error("Failed to copy text:", error);
-        });
-    } else {
-      alert("No translation available to copy.");
-    }
-  };
-
   const startListening = () => {
+    if (!recognitionRef.current) return;
+
     if (isListening) {
-      SpeechRecognition.stopListening();
-      setIsListening(false);
-      fetchTranslateText(transcript, "hi", "en");
+      recognitionRef.current.stop();
     } else {
+      recognitionRef.current.start();
       setIsListening(true);
-      SpeechRecognition.startListening({
-        language: "hi-IN",
-      });
     }
   };
 
   const fetchTranslateText = async (
-    textBoxContent: string,
-    languageFrom: string,
-    languageTo: string
+    text: string,
+    fromLang: string,
+    toLang: string
   ) => {
+    if (!text.trim()) return;
     try {
-      const result = await translator.postTranslate(
-        textBoxContent,
-        languageFrom,
-        languageTo
-      );
+      const result = await translator.postTranslate(text, fromLang, toLang);
       setTranslatedText(result.responseData.translatedText);
     } catch (error) {
       console.error("Translation failed:", error);
     }
+  };
+
+  const handleCopyToClipboard = () => {
+    const textToCopy = translatedText || transcriptedText;
+    if (textToCopy) {
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        alert("Copied to clipboard!");
+      });
+    }
+  };
+
+  const handleReset = () => {
+    setTranscriptedText("");
+    setTranslatedText("");
   };
 
   return (
@@ -89,9 +102,10 @@ const VoiceToTextTranslate = () => {
       />
 
       <div className="flex flex-col items-center relative h-screen ">
+        {/* Original Speech Box */}
         <div className=" text-gray-900 p-8 w-full h-[350px] bg-[#f3f5f7] rounded-tl-[120px] ">
           <div className="flex justify-between mt-4 items-center">
-            <div className="flex items-center  w-[60%]">
+            <div className="flex items-center w-[60%]">
               <PiSoundcloudLogoThin className="w-8 h-8 ml-8" />
               <p className="ml-3">Hindi</p>
             </div>
@@ -100,17 +114,20 @@ const VoiceToTextTranslate = () => {
                 className="w-5 h-5"
                 onClick={handleCopyToClipboard}
               />
-              <PiArrowCounterClockwiseThin onClick={resetTranscript} />
+              <PiArrowCounterClockwiseThin onClick={handleReset} />
             </div>
           </div>
           <p className="text-xl p-4 leading-12 overflow-auto ml-5 h-44 text-black">
-            {isListening ? "Listening..." : transcript || "Speak something..."}
+            {isListening
+              ? transcriptedText || "Listening..."
+              : transcriptedText || "Speak Something..."}
           </p>
         </div>
 
+        {/* Translation Box */}
         <div className=" text-gray-900 p-8 w-full absolute top-64 bg-yellow-200 rounded-tl-[120px] ">
           <div className="flex justify-between mt-4 items-center">
-            <div className="flex items-center  w-[60%]">
+            <div className="flex items-center w-[60%]">
               <PiSoundcloudLogoThin className="w-8 h-8 ml-8" />
               <p className="ml-3">English</p>
             </div>
@@ -119,17 +136,17 @@ const VoiceToTextTranslate = () => {
                 className="w-5 h-5"
                 onClick={handleCopyToClipboard}
               />
-              <PiArrowCounterClockwiseThin onClick={resetTranscript} />
+              <PiArrowCounterClockwiseThin onClick={handleReset} />
             </div>
           </div>
           <p className="text-xl p-4 leading-12 overflow-auto ml-5 h-44 text-black">
-            {translatedText || "Translation..."}
+            {translatedText || "Translation....."}
           </p>
         </div>
       </div>
 
       <p className="text-center text-xs mb-3 text-gray-600 z-40 ">
-        Note : This Features only works in Google Chrome Browser
+        Note: This works best in Google Chrome.
       </p>
       <div className="flex flex-col items-center justify-center mb-2 z-40">
         <RoundedButton
